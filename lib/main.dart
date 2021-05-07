@@ -105,7 +105,6 @@ class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
   @override
   void initState() {
     super.initState();
-    language();
     getTheme();
   }
 
