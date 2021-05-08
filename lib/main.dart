@@ -21,7 +21,9 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   AppTranslationsDelegate _newLocaleDelegate;
-  //inialize model package that help us to pick up mode language after reload
+  // *inialize model package that help us to pick up mode language after reload
+  //* scoped_model is like provider package, we use it here because its simple also to avoid error causing by
+  //* the use of two provider "provider and changeNotifierProvider"
   final MainModel _model = MainModel();
 
   @override
@@ -77,7 +79,6 @@ class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(
       builder: (BuildContext context, Widget child, MainModel model) {
-        print('is spanish ? ${model.isSpanish}');
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: model.darkTheme ? widget._darkTheme : widget._lightTheme,

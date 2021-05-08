@@ -4,44 +4,48 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui/Language/Application.dart';
 
 class MainModel extends Model {
-  // todo: theme config
+// todo: ************************Theme mode config**************************
+  //* this variable is used to fetch the right data saved locally
   final String key = "theme";
   SharedPreferences _prefs;
   bool _darkTheme;
 
-  bool get darkTheme => _darkTheme;
+  bool get darkTheme => _darkTheme; //* to get the value of the darktheme value
 
-  // ignore: non_constant_identifier_names
+  //* constractor and init useful variables
   MainModel() {
     _loadFromPrefs();
     _loadFromPrefss();
     _darkTheme = false;
     _isSpanish = false;
   }
-
+  //* this fuction is used to switch the mode
   toggleTheme() {
     _darkTheme = !_darkTheme;
     _saveToPrefs();
     notifyListeners();
   }
 
+  //* init local preferences
   _initPrefs() async {
     if (_prefs == null) _prefs = await SharedPreferences.getInstance();
   }
 
+  //* load pref stored locally
   _loadFromPrefs() async {
     await _initPrefs();
     _darkTheme = _prefs.getBool(key) ?? false;
     notifyListeners();
   }
 
+  //* save pref on change locally
   _saveToPrefs() async {
     await _initPrefs();
     _prefs.setBool(key, _darkTheme);
   }
 
-  // todo: language config**************************************************
-  //languagesList also moved to the Application class just like the languageCodesList
+// todo: ************************language config**************************
+  //*languagesList also moved to the Application class just like the languageCodesList
   static final List<String> languagesList = application.supportedLanguages;
   static final List<String> languageCodesList =
       application.supportedLanguagesCodes;
@@ -57,8 +61,6 @@ class MainModel extends Model {
 
   bool get isSpanish => _isSpanish;
 
-  // ignore: non_constant_identifier_names
-
   toggleLanguage() {
     _isSpanish = !_isSpanish;
     _isSpanish
@@ -69,19 +71,16 @@ class MainModel extends Model {
     notifyListeners();
   }
 
-  // ignore: unused_element
   _initPrefss() async {
     if (_prefss == null) _prefss = await SharedPreferences.getInstance();
   }
 
-  // ignore: unused_element
   _loadFromPrefss() async {
     await _initPrefss();
     _isSpanish = _prefss.getBool(keyy) ?? false;
     notifyListeners();
   }
 
-  // ignore: unused_element
   _saveToPrefss() async {
     await _initPrefss();
     _prefss.setBool(keyy, _isSpanish);
