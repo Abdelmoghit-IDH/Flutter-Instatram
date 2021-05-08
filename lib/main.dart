@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:ui/Global/theme_changer.dart';
 import 'package:ui/screens/List_Lignes.dart';
 import 'package:ui/screens/splashsScreen.dart';
 import 'package:ui/service/tram_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'Global/Global_variables.dart';
 import 'Language/AppTranslationsDelegate.dart';
 import 'Language/Application.dart';
-import 'package:ui/Global/Global_variables.dart';
+import 'package:scoped_model/scoped_model.dart';
+import 'shared_data/MainModel.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-// ignore: must_be_immutable
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -23,11 +21,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   AppTranslationsDelegate _newLocaleDelegate;
+  //inialize model package that help us to pick up mode language after reload
+  final MainModel _model = MainModel();
 
   @override
   void initState() {
     super.initState();
-
     _newLocaleDelegate = AppTranslationsDelegate(newLocale: null);
     application.onLocaleChanged = onLocaleChange;
   }
@@ -38,43 +37,22 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  //**********************theme**********************/
-  // Todo: Dark Theme
-  ThemeData _darkTheme = ThemeData(
-    primaryColorDark: Colors.white,
-    primaryColorLight: Colors.grey[800],
-    scaffoldBackgroundColor: Colors.black,
-    accentColor: Colors.red[200],
-    brightness: Brightness.dark,
-    primaryColor: Color(0xff332940),
-  );
-  // Todo: Light Theme
-  // ignore: unused_element
-  ThemeData _lightTheme = ThemeData(
-    primaryColorLight: Colors.grey[400],
-    primaryColorDark: Color(0xff1f1b24),
-    scaffoldBackgroundColor: Colors.white,
-    accentColor: Colors.deepOrangeAccent,
-    brightness: Brightness.light,
-    primaryColor: Colors.red[300],
-  );
-//***********************theme*********************/
-
   @override
   Widget build(BuildContext context) {
-    //SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
-    return Provider(
-      create: (_) => TramService.create(),
-      dispose: (_, TramService service) => service.client.dispose(),
-      child: BodyOfTheProvider(
-          darkTheme: _darkTheme,
-          lightTheme: _lightTheme,
-          newLocaleDelegate: _newLocaleDelegate),
+    return ScopedModel<MainModel>(
+      model: _model,
+      child: Provider(
+        create: (_) => TramService.create(),
+        dispose: (_, TramService service) => service.client.dispose(),
+        child: BodyOfTheProvider(
+            darkTheme: darkTheme,
+            lightTheme: lightTheme,
+            newLocaleDelegate: _newLocaleDelegate),
+      ),
     );
   }
 }
 
-// ignore: must_be_immutable
 class BodyOfTheProvider extends StatefulWidget {
   BodyOfTheProvider({
     Key key,
@@ -95,53 +73,29 @@ class BodyOfTheProvider extends StatefulWidget {
 }
 
 class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
-  getTheme() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      theActualThemeIsdark = prefs.getBool("theme");
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getTheme();
-  }
-
-  //languagesList also moved to the Application class just like the languageCodesList
-  static final List<String> languagesList = application.supportedLanguages;
-  static final List<String> languageCodesList =
-      application.supportedLanguagesCodes;
-
-  final Map<dynamic, dynamic> languagesMap = {
-    languagesList[0]: languageCodesList[0],
-    languagesList[1]: languageCodesList[1],
-  };
-
-  language() {
-    if (!isSpanishLanguage) {
-      application.onLocaleChanged(Locale(languagesMap[languagesList[1]]));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ThemeBuilder(
-      defaultBrightness: Brightness.light,
-      builder: (context, _brightness) {
-        //TramService data = Provider.of<TramService>(context);
+    return ScopedModelDescendant<MainModel>(
+      builder: (BuildContext context, Widget child, MainModel model) {
+        print('is spanish ? ${model.isSpanish}');
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: theActualThemeIsdark ? widget._darkTheme : widget._lightTheme,
+          theme: model.darkTheme ? widget._darkTheme : widget._lightTheme,
           localizationsDelegates: [
             widget._newLocaleDelegate,
             const AppTranslationsDelegate(),
-            //provides localised strings
             GlobalMaterialLocalizations.delegate,
-            //provides RTL support
             GlobalWidgetsLocalizations.delegate,
           ],
+          locale: Locale('en', 'EN'),
           supportedLocales: application.supportedLocales(),
+          localeResolutionCallback: (locale, supportedLocales) {
+            if (model.isSpanish) {
+              return supportedLocales.last;
+            } else {
+              return supportedLocales.first;
+            }
+          },
           initialRoute: '/',
           routes: {
             '/': (context) => SplashScreen(),

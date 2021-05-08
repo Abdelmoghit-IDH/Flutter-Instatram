@@ -11,7 +11,7 @@ class AppTranslations {
   AppTranslations(Locale locale) {
     this.locale = locale;
     _localisedValues = null;
-  }
+  } 
 
   static AppTranslations of(BuildContext context) {
     return Localizations.of<AppTranslations>(context, AppTranslations);

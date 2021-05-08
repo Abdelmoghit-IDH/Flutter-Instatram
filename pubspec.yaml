@@ -31,7 +31,8 @@ dev_dependencies:
   json_serializable: ^3.3.0
   lite_rolling_switch: ^0.1.1
   shared_preferences: ^0.4.3
-
+  scoped_model: ^1.0.1
+ 
 flutter:
   uses-material-design: true
 

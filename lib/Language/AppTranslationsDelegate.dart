@@ -12,7 +12,7 @@ class AppTranslationsDelegate extends LocalizationsDelegate<AppTranslations> {
   bool isSupported(Locale locale) {
     return application.supportedLanguagesCodes.contains(locale.languageCode);
   }
-
+ 
   @override
   Future<AppTranslations> load(Locale locale) {
     return AppTranslations.load(newLocale ?? locale);

@@ -19,7 +19,7 @@ abstract class TramService extends ChopperService {
     // 9
     final client = ChopperClient(
       // 10
-      baseUrl: 'https://api.jsonbin.io/b/608ae548f41a6a12bbf13eec',
+      baseUrl: 'https://api.jsonbin.io/b/6096b0fb7a19ef1245a58e21',
       interceptors: [HttpLoggingInterceptor()],
 
       converter: ModelConverter(),
@@ -58,5 +58,6 @@ abstract class TramService extends ChopperService {
 
   ////////////////////////////////////////////////////////////////////////////////
 
-  bool isDarkModeTheme;
+  bool isDarkModeTheme=false;
+  bool isSpanishLanguage=false;
 }

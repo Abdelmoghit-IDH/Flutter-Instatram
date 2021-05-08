@@ -2,15 +2,14 @@ import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ui/Global/SizeConfig.dart';
-import 'package:ui/Global/theme_changer.dart';
 import 'package:ui/Language/AppTranslations.dart';
-import 'package:ui/Language/Application.dart';
 import 'package:ui/models/tram.dart';
 import 'package:ui/models/wholejson.dart';
 import 'package:ui/screens/home.dart';
 import 'package:ui/service/tram_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui/Global/Global_variables.dart';
+import 'package:ui/shared_data/MainModel.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class ListLignes extends StatefulWidget {
   @override
@@ -18,171 +17,127 @@ class ListLignes extends StatefulWidget {
 }
 
 class _ListLignesState extends State<ListLignes> {
-  bool _isSpanishLanguage = false;
-
-  //languagesList also moved to the Application class just like the languageCodesList
-  static final List<String> languagesList = application.supportedLanguages;
-  static final List<String> languageCodesList =
-      application.supportedLanguagesCodes;
-
-  final Map<dynamic, dynamic> languagesMap = {
-    languagesList[0]: languageCodesList[0],
-    languagesList[1]: languageCodesList[1],
-  };
-
-  getLanguage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isSpanishLanguage = prefs.getBool("language");
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getLanguage();
-  }
-
   @override
   Widget build(BuildContext context) {
-    //TramService data = Provider.of<TramService>(context);
-    return Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Builder(builder: (BuildContext context) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              SizedBox(height: SizeConfig.blockSizeHorizontal * 2),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Icon(null),
-                  Text(
-                    _isSpanishLanguage ? 'Lista de líneas' : 'Lines list',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColorDark,
-                      fontFamily: 'Jura-VariableFont',
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
+    return ScopedModelDescendant<MainModel>(
+        builder: (BuildContext context, Widget child, MainModel model) {
+      theActualThemeIsdark = model.darkTheme;
+      return Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: Builder(builder: (BuildContext context) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                SizedBox(height: SizeConfig.blockSizeHorizontal * 2),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Icon(null),
+                    Text(
+                      model.isSpanish ? 'Lista de líneas' : 'Lines list',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColorDark,
+                        fontFamily: 'Jura-VariableFont',
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.settings,
-                      size: SizeConfig.blockSizeHorizontal * 8,
-                    ),
-                    onPressed: () {
-                      showBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return Wrap(
-                              children: [
-                                Container(
-                                  color: Theme.of(context).accentColor,
-                                  child: ListTile(
-                                    title: Text(
-                                      AppTranslations.of(context)
-                                          .text("settings"),
-                                      style: TextStyle(
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal * 5,
-                                        fontWeight: FontWeight.w600,
+                    IconButton(
+                      icon: Icon(
+                        Icons.settings,
+                        size: SizeConfig.blockSizeHorizontal * 8,
+                      ),
+                      onPressed: () {
+                        showBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return Wrap(
+                                children: [
+                                  Container(
+                                    color: Theme.of(context).accentColor,
+                                    child: ListTile(
+                                      title: Text(
+                                        AppTranslations.of(context)
+                                            .text("settings"),
+                                        style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal *
+                                                  5,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                ListTile(
-                                  leading: Text(
-                                    AppTranslations.of(context)
-                                        .text("Light / Dark"),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize:
-                                          SizeConfig.blockSizeHorizontal * 5,
+                                  ListTile(
+                                    leading: Text(
+                                      AppTranslations.of(context)
+                                          .text("Light / Dark"),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal * 5,
+                                      ),
+                                    ),
+                                    trailing: Transform.scale(
+                                      scale: 1.5,
+                                      child: Switch(
+                                        inactiveThumbColor:
+                                            Theme.of(context).accentColor,
+                                        activeColor:
+                                            Theme.of(context).accentColor,
+                                        value: model.darkTheme,
+                                        onChanged: (bool state) async {
+                                          setState(() {
+                                            theActualThemeIsdark = state;
+                                            model.toggleTheme();
+                                          });
+                                        },
+                                      ),
                                     ),
                                   ),
-                                  trailing: Transform.scale(
-                                    scale: 1.5,
-                                    child: Switch(
-                                      inactiveThumbColor:
-                                          Theme.of(context).accentColor,
-                                      activeColor:
-                                          Theme.of(context).accentColor,
-                                      value: theActualThemeIsdark,
-                                      onChanged: (bool state) async {
-                                        SharedPreferences prefs =
-                                            await SharedPreferences
-                                                .getInstance();
-                                        setState(() {
-                                          prefs.setBool("theme", state);
-
-                                          theActualThemeIsdark = state;
-                                          //data.isDarkModeTheme = state;
-                                          //print(data.isDarkModeTheme);
-                                          ThemeBuilder.of(context)
-                                              .changeTheme();
-                                        });
-                                      },
+                                  ListTile(
+                                    leading: Text(
+                                      AppTranslations.of(context)
+                                          .text("English / Spanish"),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal * 5,
+                                      ),
+                                    ),
+                                    trailing: Transform.scale(
+                                      scale: 1.5,
+                                      child: Switch(
+                                        activeColor:
+                                            Theme.of(context).accentColor,
+                                        inactiveThumbColor:
+                                            Theme.of(context).accentColor,
+                                        value: model.isSpanish,
+                                        onChanged: (bool state) async {
+                                          setState(() {
+                                            
+                                            model.toggleLanguage();
+                                            print(model.isSpanish);
+                                          });
+                                        },
+                                      ),
                                     ),
                                   ),
-                                ),
-                                ListTile(
-                                  leading: Text(
-                                    AppTranslations.of(context)
-                                        .text("English / Spanish"),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize:
-                                          SizeConfig.blockSizeHorizontal * 5,
-                                    ),
-                                  ),
-                                  trailing: Transform.scale(
-                                    scale: 1.5,
-                                    child: Switch(
-                                      activeColor:
-                                          Theme.of(context).accentColor,
-                                      inactiveThumbColor:
-                                          Theme.of(context).accentColor,
-                                      value: isSpanishLanguage,
-                                      onChanged: (bool state) async {
-                                        SharedPreferences prefs =
-                                            await SharedPreferences
-                                                .getInstance();
-                                        setState(() {
-                                          if (!isSpanishLanguage) {
-                                            prefs.setBool("language",
-                                                !isSpanishLanguage);
-                                            application.onLocaleChanged(Locale(
-                                                languagesMap[
-                                                    languagesList[1]]));
-                                          } else {
-                                            prefs.setBool(
-                                                "language", isSpanishLanguage);
-                                            application.onLocaleChanged(Locale(
-                                                languagesMap[
-                                                    languagesList[0]]));
-                                          }
-                                          isSpanishLanguage = state;
-                                          print(isSpanishLanguage);
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          });
-                    },
-                  )
-                ],
-              ),
-              Container(
-                height: SizeConfig.safeBlockVertical * 90,
-                child: _buildBody(context),
-              ),
-            ],
-          );
-        }));
+                                ],
+                              );
+                            });
+                      },
+                    )
+                  ],
+                ),
+                Container(
+                  height: SizeConfig.safeBlockVertical * 90,
+                  child: _buildBody(context),
+                ),
+              ],
+            );
+          }));
+    });
   }
 
   FutureBuilder<Response<WholeJSON>> _buildBody(BuildContext context) {

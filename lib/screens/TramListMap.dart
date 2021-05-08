@@ -15,8 +15,8 @@ class TramListMap extends StatefulWidget {
 }
 
 class _TramListMapState extends State<TramListMap> {
-  //........................................l'indice referant le num de la ligne
-  //......................................................nomé widget.index pour le distinguer du widget.index en bas
+  //....................l'indice referant le num de la ligne
+  //....................nomé widget.index pour le distinguer du widget.index en bas
 
   bool isMapCreated = false;
   GoogleMapController _controller;
