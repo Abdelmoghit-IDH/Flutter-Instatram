@@ -6,6 +6,7 @@ import 'package:ui/Global/Global_variables.dart';
 import 'package:ui/models/tram.dart';
 import 'package:ui/service/tram_service.dart';
 
+
 class TramListMap extends StatefulWidget {
   final index;
   const TramListMap({Key key, this.index}) : super(key: key);
@@ -72,6 +73,9 @@ class _TramListMapState extends State<TramListMap> {
       print(element);
       markers.add(
         Marker(
+          icon: !theActualThemeIsdark ? BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueRed):BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueBlue),
           infoWindow: InfoWindow(
               title: element.name, snippet: "........EMPTY.FOR.NOW........"),
           markerId: MarkerId(element.name),
