@@ -1,6 +1,6 @@
 import 'package:chopper/chopper.dart';
-import 'package:ui/models/tram.dart';
-import 'package:ui/models/wholejson.dart';
+import '../models/tram.dart';
+import '../models/wholejson.dart';
 import 'model_converter.dart';
 
 part 'tram_service.chopper.dart';
@@ -60,4 +60,5 @@ abstract class TramService extends ChopperService {
 
   bool isDarkModeTheme=false;
   bool isSpanishLanguage=false;
+  bool isBottomSheetOn=false;
 }

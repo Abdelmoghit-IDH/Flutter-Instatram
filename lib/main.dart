@@ -1,17 +1,30 @@
+import 'package:apiflutter/shared_data/MainModel.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
-import 'package:ui/screens/List_Lignes.dart';
-import 'package:ui/screens/splashsScreen.dart';
-import 'package:ui/service/tram_service.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'Global/Global_variables.dart';
 import 'Language/AppTranslationsDelegate.dart';
 import 'Language/Application.dart';
-import 'package:scoped_model/scoped_model.dart';
-import 'shared_data/MainModel.dart';
+import 'Screens/List_Lignes.dart';
+import 'Screens/splashsScreen.dart';
+import 'service/tram_service.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  _setupLogging();
   runApp(MyApp());
+}
+
+void _setupLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -19,6 +32,8 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+
+// ignore: unused_element
 class _MyAppState extends State<MyApp> {
   AppTranslationsDelegate _newLocaleDelegate;
   // *inialize model package that help us to pick up mode language after reload
@@ -74,6 +89,8 @@ class BodyOfTheProvider extends StatefulWidget {
   _BodyOfTheProviderState createState() => _BodyOfTheProviderState();
 }
 
+
+
 class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
   @override
   Widget build(BuildContext context) {
@@ -107,3 +124,4 @@ class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
     );
   }
 }
+

@@ -1,14 +1,18 @@
+import 'package:apiflutter/Global/SizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeline_tile/timeline_tile.dart';
-import 'package:ui/Global/SizeConfig.dart';
-import 'package:ui/models/tram.dart';
-import 'package:ui/service/tram_service.dart';
+import '../models/tram.dart';
+import '../service/tram_service.dart';
+import 'Gallerystation.dart';
 
+// ignore: must_be_immutable
 class TramsList extends StatefulWidget {
   final index;
+  String stationName;
 
-  const TramsList({Key key, this.index}) : super(key: key);
+  TramsList({Key key, this.index, @required this.stationName})
+      : super(key: key);
   @override
   _TramsListState createState() => _TramsListState(index);
 }
@@ -56,14 +60,14 @@ class _TramsListState extends State<TramsList> {
             color: Theme.of(context).accentColor,
           ),
           endChild: GestureDetector(
-            child: _RowExample(example: listTarget[index]),
+            child: _RowExample(example: listTarget[index],stationName: widget.stationName),
             onTap: () {
-              /*Navigator.push(
+              Navigator.push(
                 context,
-                MaterialPageRoute<ShowcaseTimeline>(
-                  builder: (_) => ShowcaseTimeline(example: example),
-                ),
-              );*/
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Gallerystation(stationsName: widget.stationName)),
+              );
             },
           ),
         );
@@ -119,17 +123,26 @@ class _IndicatorExample extends StatelessWidget {
 //...........................................se trouve a droite du dernier widget dont on a parle
 //...........................................dans notre cas le nom du station et l icon clicable pour passer
 //...........................................au photos de chaque station
+// ignore: must_be_immutable
 class _RowExample extends StatelessWidget {
-  const _RowExample({Key key, this.example}) : super(key: key);
+  _RowExample({Key key, this.example,@required this.stationName}) : super(key: key);
 
   final TramUtile example;
+  String stationName;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Gallerystation(stationsName: stationName)),
+              );
+        },
         child: Row(
           children: <Widget>[
             Expanded(

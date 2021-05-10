@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:apiflutter/models/wholejson.dart';
 import 'package:chopper/chopper.dart';
-import 'package:ui/models/wholejson.dart';
 
 class ModelConverter implements Converter {
   @override

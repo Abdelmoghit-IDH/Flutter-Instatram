@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:apiflutter/Global/SizeConfig.dart';
 import 'package:flutter/material.dart';
-import 'package:ui/Global/SizeConfig.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key key}) : super(key: key);

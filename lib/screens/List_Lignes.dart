@@ -1,15 +1,16 @@
+import 'package:apiflutter/Global/Global_variables.dart';
+import 'package:apiflutter/Global/SizeConfig.dart';
+import 'package:apiflutter/Language/AppTranslations.dart';
+import 'package:apiflutter/shared_data/MainModel.dart';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ui/Global/SizeConfig.dart';
-import 'package:ui/Language/AppTranslations.dart';
-import 'package:ui/models/tram.dart';
-import 'package:ui/models/wholejson.dart';
-import 'package:ui/screens/home.dart';
-import 'package:ui/service/tram_service.dart';
-import 'package:ui/Global/Global_variables.dart';
-import 'package:ui/shared_data/MainModel.dart';
 import 'package:scoped_model/scoped_model.dart';
+
+import '../models/tram.dart';
+import '../models/wholejson.dart';
+import '../service/tram_service.dart';
+import 'home.dart';
 
 class ListLignes extends StatefulWidget {
   @override
@@ -316,7 +317,7 @@ class _ListLignesState extends State<ListLignes> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Home(index: index + 1)),
+                      builder: (context) => Home(index: index + 1,stationName:wholeJSON.data.trams[index].name)),
                 );
               },
             ),

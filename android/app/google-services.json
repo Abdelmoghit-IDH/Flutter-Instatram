@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "757568049677",
+    "project_id": "instatram-base",
+    "storage_bucket": "instatram-base.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757568049677:android:6fcce1a4fa69271c18bb44",
+        "android_client_info": {
+          "package_name": "com.example.apiflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757568049677-to4c6fjjs8nkeorp325dptp1600thq34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu8GNOQ-g3ymVBCQmP0Zy7wUW-9Q-sGws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757568049677-to4c6fjjs8nkeorp325dptp1600thq34.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

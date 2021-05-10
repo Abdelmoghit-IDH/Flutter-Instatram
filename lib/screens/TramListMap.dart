@@ -1,10 +1,11 @@
+import 'package:apiflutter/Global/Global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:ui/Global/Global_variables.dart';
-import 'package:ui/models/tram.dart';
-import 'package:ui/service/tram_service.dart';
+
+import '../models/tram.dart';
+import '../service/tram_service.dart';
 
 
 class TramListMap extends StatefulWidget {
@@ -73,9 +74,8 @@ class _TramListMapState extends State<TramListMap> {
       print(element);
       markers.add(
         Marker(
-          icon: !theActualThemeIsdark ? BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueRed):BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueBlue),
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueRed),
           infoWindow: InfoWindow(
               title: element.name, snippet: "........EMPTY.FOR.NOW........"),
           markerId: MarkerId(element.name),

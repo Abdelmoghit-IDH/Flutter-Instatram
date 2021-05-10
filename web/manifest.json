@@ -1,6 +1,6 @@
 {
-    "name": "ui",
-    "short_name": "ui",
+    "name": "apiflutter",
+    "short_name": "apiflutter",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

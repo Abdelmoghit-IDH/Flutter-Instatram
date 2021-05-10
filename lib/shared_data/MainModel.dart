@@ -1,7 +1,9 @@
 import 'dart:ui';
+import 'package:apiflutter/Language/Application.dart';
+import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ui/Language/Application.dart';
+
 
 class MainModel extends Model {
 // todo: ************************Theme mode config**************************
@@ -84,5 +86,12 @@ class MainModel extends Model {
   _saveToPrefss() async {
     await _initPrefss();
     _prefss.setBool(keyy, _isSpanish);
+  }
+
+  bool isBottomSheetOn = false;
+  bool get bottomSheet => isBottomSheetOn;
+  setBottomSheet(bool state) {
+    isBottomSheetOn = state;
+    notifyListeners();
   }
 }
