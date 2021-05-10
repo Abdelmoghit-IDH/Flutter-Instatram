@@ -1,11 +1,11 @@
 import 'dart:io';
+import 'package:apiflutter/Language/AppTranslations.dart';
 import 'package:apiflutter/Screens/Gallerystation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-
 
 class AddImage extends StatefulWidget {
   final String stationsName;
@@ -42,7 +42,7 @@ class _AddImageState extends State<AddImage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Add Image'),
+          title: Text(AppTranslations.of(context).text("Add a photo")),
           actions: [
             // ignore: deprecated_member_use
             FlatButton(
@@ -54,7 +54,7 @@ class _AddImageState extends State<AddImage> {
                       .whenComplete(() => Navigator.of(context).pop());
                 },
                 child: Text(
-                  'upload',
+                  AppTranslations.of(context).text("Upload"),
                   style: TextStyle(color: Colors.white),
                 ))
           ],
