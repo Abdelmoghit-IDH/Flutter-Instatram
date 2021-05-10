@@ -7,9 +7,12 @@ import 'TramListMap.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
-  Home({Key key, this.index,@required this.stationName}) : super(key: key);
+  Home({
+    Key key,
+    this.index,
+  }) : super(key: key);
   final index;
-  String stationName;
+
   @override
   _HomeState createState() => _HomeState(index);
 }
@@ -24,7 +27,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     //..........................................................le contenue des 2 tabs
     final _kTabPages = <Widget>[
-      TramsList(index: this.index,stationName: widget.stationName),
+      TramsList(index: this.index),
       TramListMap(index: this.index),
     ];
     //..........................................................les icons des 2 tabs

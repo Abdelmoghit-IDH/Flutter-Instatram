@@ -10,6 +10,8 @@
     "List":"List",
     "Map": "Map",
     "From":"From ",
-    "To":" ... to "
-    
+    "To":" ... to ",
+    "Add a photo":"Add a photo",
+    "Photos of ":"Photos of ",
+    "Upload":"Upload"
 }

@@ -116,7 +116,6 @@ class _ListLignesState extends State<ListLignes> {
                                         value: model.isSpanish,
                                         onChanged: (bool state) async {
                                           setState(() {
-                                            
                                             model.toggleLanguage();
                                             print(model.isSpanish);
                                           });
@@ -317,7 +316,7 @@ class _ListLignesState extends State<ListLignes> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Home(index: index + 1,stationName:wholeJSON.data.trams[index].name)),
+                      builder: (context) => Home(index: index + 1)),
                 );
               },
             ),
