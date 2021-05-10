@@ -9,10 +9,11 @@ import 'Gallerystation.dart';
 // ignore: must_be_immutable
 class TramsList extends StatefulWidget {
   final index;
-  String stationName;
 
-  TramsList({Key key, this.index, @required this.stationName})
-      : super(key: key);
+  TramsList({
+    Key key,
+    this.index,
+  }) : super(key: key);
   @override
   _TramsListState createState() => _TramsListState(index);
 }
@@ -31,7 +32,7 @@ class _TramsListState extends State<TramsList> {
 
   ListView _buildTramList(BuildContext context) {
     TramService data = Provider.of<TramService>(context);
-    List listTarget;
+    List<TramUtile> listTarget;
     if (indexx == 1) listTarget = data.stationsT1;
     if (indexx == 2) listTarget = data.stationsT2;
     if (indexx == 3) listTarget = data.stationsT3;
@@ -59,17 +60,7 @@ class _TramsListState extends State<TramsList> {
           beforeLineStyle: LineStyle(
             color: Theme.of(context).accentColor,
           ),
-          endChild: GestureDetector(
-            child: _RowExample(example: listTarget[index],stationName: widget.stationName),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        Gallerystation(stationsName: widget.stationName)),
-              );
-            },
-          ),
+          endChild: _RowExample(example: listTarget[index]),
         );
       },
     );
@@ -125,10 +116,12 @@ class _IndicatorExample extends StatelessWidget {
 //...........................................au photos de chaque station
 // ignore: must_be_immutable
 class _RowExample extends StatelessWidget {
-  _RowExample({Key key, this.example,@required this.stationName}) : super(key: key);
+  _RowExample({
+    Key key,
+    this.example,
+  }) : super(key: key);
 
   final TramUtile example;
-  String stationName;
 
   @override
   Widget build(BuildContext context) {
@@ -137,11 +130,11 @@ class _RowExample extends StatelessWidget {
       child: TextButton(
         onPressed: () {
           Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        Gallerystation(stationsName: stationName)),
-              );
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    Gallerystation(stationsName: example.name)),
+          );
         },
         child: Row(
           children: <Widget>[
