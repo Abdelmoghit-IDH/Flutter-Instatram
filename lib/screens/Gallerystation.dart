@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'uploadImage.dart';
+import 'dart:async';
 
 class Gallerystation extends StatefulWidget {
   final String stationsName;
@@ -59,6 +60,7 @@ class _HomePageState extends State<Gallerystation> {
                       for (var i = 0; i < listeImages.length; i++) {
                         isLiked.add(false);
                       }
+
                       return ListView.builder(
                           itemCount: listeImages.length,
                           padding: EdgeInsets.all(8),
@@ -66,7 +68,6 @@ class _HomePageState extends State<Gallerystation> {
                             return Padding(
                               padding: EdgeInsets.symmetric(vertical: 8),
                               child: Container(
-                          
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20),
@@ -191,20 +192,20 @@ class _HomePageState extends State<Gallerystation> {
       list.add(
         Container(
           width: double.infinity,
-          height:250,
+          height: 300,
           child: CachedNetworkImage(
-            fit:BoxFit.fill,
+            fit: BoxFit.fill,
             placeholder: (context, url) => Container(
               color: Colors.grey,
               width: double.infinity,
               height: 250,
               child: SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
+                height: 250,
+                width: 100,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
             ),
             imageUrl: dataxxx[key],
             errorWidget: (context, url, error) => Icon(Icons.error),
@@ -270,4 +271,19 @@ class FileStorageService extends ChangeNotifier {
         .doc(stationName)
         .update({"bka": FieldValue.delete()});
   }
+}
+
+Future<Size> calculateImageDimension(String url) {
+  Completer<Size> completer = Completer();
+  Image image = Image.network(url);
+  image.image.resolve(ImageConfiguration()).addListener(
+    ImageStreamListener(
+      (ImageInfo image, bool synchronousCall) {
+        var myImage = image.image;
+        Size size = Size(myImage.width.toDouble(), myImage.height.toDouble());
+        completer.complete(size);
+      },
+    ),
+  );
+  return completer.future;
 }
