@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> 0aec78b (Hatim first commit)
 import '../models/tram.dart';
 import '../service/tram_service.dart';
 

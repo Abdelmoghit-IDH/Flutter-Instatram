@@ -16,6 +16,9 @@ class Gallerystation extends StatefulWidget {
   _HomePageState createState() => _HomePageState(stationsName);
 }
 
+final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+    new GlobalKey<RefreshIndicatorState>();
+
 class _HomePageState extends State<Gallerystation> {
   String sname;
   _HomePageState(String sname) {
@@ -37,195 +40,150 @@ class _HomePageState extends State<Gallerystation> {
                 builder: (context) => AddImage(stationsName: sname)));
           },
         ),
-        body: Container(
-<<<<<<< HEAD
-          child:
-              /*FlatButton(
-                onPressed: () => FileStorageService.loadImage(sname),
-                child: Text("hi")),*/
-              FutureBuilder<DocumentSnapshot>(
-                  future: FirebaseFirestore.instance
-                      .collection('stations')
-                      .doc(sname)
-                      .get(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<DocumentSnapshot> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasError) {
-                        return Center(
-                          child: Text(
-                            snapshot.error.toString(),
-                            textAlign: TextAlign.center,
-                            textScaleFactor: 1.3,
-                          ),
-                        );
-                      }
-                      List listeImages = _buildImageGrid(snapshot.data.data());
-                      List isLiked = [];
-                      for (var i = 0; i < listeImages.length; i++) {
-                        isLiked.add(false);
-                      }
-
-                      return ListView.builder(
-                          itemCount: listeImages.length,
-                          padding: EdgeInsets.all(8),
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  //border: Border.all(color: Colors.grey),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 2,
-                                      blurRadius: 10,
-                                      offset: Offset(
-                                          0, 3), // changes position of shadow
-                                    ),
-                                  ],
-=======
-          child: FutureBuilder<DocumentSnapshot>(
-              future: FirebaseFirestore.instance
-                  .collection('stations')
-                  .doc(sname)
-                  .get(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<DocumentSnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: Text(
-                        snapshot.error.toString(),
-                        textAlign: TextAlign.center,
-                        textScaleFactor: 1.3,
-                      ),
-                    );
-                  }
-                  List listeImages = _buildImageGrid(snapshot.data.data());
-                  return ListView.builder(
-                      itemCount: listeImages.length,
-                      padding: EdgeInsets.all(8),
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              //border: Border.all(color: Colors.grey),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  offset: Offset(
-                                      0, 3), // changes position of shadow
->>>>>>> e89badc051b5bbe4a923fa150e748ed7f6e3fc3f
-                                ),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(0.0),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          //color: Colors.green,
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundImage: AssetImage(
-                                                    'images/profil.jpg'),
-                                                radius: 20,
-                                                //backgroundColor: ,
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                "Xavi Lopez",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Text(
-                                          "1/1/2000 10:15",
-                                          style: TextStyle(color: Colors.grey),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                            ".......................title here...........................")
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  listeImages[index],
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.favorite_border,
-                                          size: 30,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 3,
+        body: RefreshIndicator(
+          key: _refreshIndicatorKey,
+          onRefresh: refresh,
+          child: Container(
+            child: FutureBuilder<DocumentSnapshot>(
+                future: FirebaseFirestore.instance
+                    .collection('stations')
+                    .doc(sname)
+                    .get(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(
+                          snapshot.error.toString(),
+                          textAlign: TextAlign.center,
+                          textScaleFactor: 1.3,
+                        ),
+                      );
+                    }
+                    List listeImages = _buildImageGrid(snapshot.data.data());
+                    return ListView.builder(
+                        itemCount: listeImages.length,
+                        padding: EdgeInsets.all(8),
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                //border: Border.all(color: Colors.grey),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
                                   ),
                                 ],
                               ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(0.0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            //color: Colors.green,
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundImage: AssetImage(
+                                                      'images/profil.jpg'),
+                                                  radius: 20,
+                                                  //backgroundColor: ,
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  "Xavi Lopez",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Text(
+                                            "1/1/2000 10:15",
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                              ".......................title here...........................")
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    listeImages[index],
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.favorite_border,
+                                            size: 30,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
+                          );
+                        });
+                    /*return GridView.custom(
+                          shrinkWrap: true,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            mainAxisSpacing: 5.0,
+                            crossAxisSpacing: 5.0,
                           ),
-                        );
-                      });
-                  /*return GridView.custom(
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1,
-                          mainAxisSpacing: 5.0,
-                          crossAxisSpacing: 5.0,
-                        ),
-                        childrenDelegate: SliverChildListDelegate(
-                            _buildImageGrid(snapshot.data.data())),
-                      );*/
-                } else {
-                  // Show a loading indicator while waiting for the movies
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              }),
+                          childrenDelegate: SliverChildListDelegate(
+                              _buildImageGrid(snapshot.data.data())),
+                        );*/
+                  } else {
+                    // Show a loading indicator while waiting for the movies
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+          ),
         ));
   }
 
@@ -235,27 +193,14 @@ class _HomePageState extends State<Gallerystation> {
     dataxxx.forEach((key, value) {
       list.add(
         Container(
-          width: double.infinity,
-<<<<<<< HEAD
-          height: 300,
           child: CachedNetworkImage(
-            fit: BoxFit.fill,
-=======
-          height: 250,
-          child: CachedNetworkImage(
-            fit: BoxFit.fitHeight,
->>>>>>> e89badc051b5bbe4a923fa150e748ed7f6e3fc3f
+            height: 250,
+            fit: BoxFit.contain,
             placeholder: (context, url) => Container(
               //color: Colors.grey,
               width: double.infinity,
-              height: 250,
+
               child: SizedBox(
-<<<<<<< HEAD
-                height: 250,
-=======
-                height: 100,
->>>>>>> e89badc051b5bbe4a923fa150e748ed7f6e3fc3f
-                width: 100,
                 child: Center(
                   child: CircularProgressIndicator(),
                 ),
@@ -266,28 +211,16 @@ class _HomePageState extends State<Gallerystation> {
           ),
         ),
       );
-
       //dataxxx[key].
     });
 
     return list;
   }
-/*
-  void getImage(String imageName) async {
-    await FileStorageService.loadImage(imageName);
+  //todo: this future function is used to refresh the screen
+  Future<Null> refresh() async {
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {});
   }
-
-  Future<Widget> displayImages(String stationName) async {
-    await FirebaseFirestore.instance
-        .collection('/stations')
-        .doc(stationName)
-        .get()
-        .then((value) => print(value));
-
-    return Column(
-      children: [],
-    );
-  }*/
 }
 
 class FileStorageService extends ChangeNotifier {
@@ -325,19 +258,4 @@ class FileStorageService extends ChangeNotifier {
         .doc(stationName)
         .update({"bka": FieldValue.delete()});
   }
-}
-
-Future<Size> calculateImageDimension(String url) {
-  Completer<Size> completer = Completer();
-  Image image = Image.network(url);
-  image.image.resolve(ImageConfiguration()).addListener(
-    ImageStreamListener(
-      (ImageInfo image, bool synchronousCall) {
-        var myImage = image.image;
-        Size size = Size(myImage.width.toDouble(), myImage.height.toDouble());
-        completer.complete(size);
-      },
-    ),
-  );
-  return completer.future;
 }
