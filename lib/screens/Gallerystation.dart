@@ -54,110 +54,9 @@ class _HomePageState extends State<Gallerystation> {
                       ),
                     );
                   }
+
                   List listeImages = _buildImageGrid(snapshot.data.data());
-                  return ListView.builder(
-                      itemCount: listeImages.length,
-                      padding: EdgeInsets.all(8),
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              //border: Border.all(color: Colors.grey),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  offset: Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(0.0),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          //color: Colors.green,
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundImage: AssetImage(
-                                                    'images/profil.jpg'),
-                                                radius: 20,
-                                                //backgroundColor: ,
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                "Xavi Lopez",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Text(
-                                          "1/1/2000 10:15",
-                                          style: TextStyle(color: Colors.grey),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                            ".......................title here...........................")
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  listeImages[index],
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.favorite_border,
-                                          size: 30,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      });
+                  return buildListView(listeImages);
                   /*return GridView.custom(
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -178,7 +77,107 @@ class _HomePageState extends State<Gallerystation> {
         ));
   }
 
-  List _buildImageGrid(Map<String, dynamic> dataxxx) {
+  ListView buildListView(List listeImages) {
+    return ListView.builder(
+        itemCount: listeImages.length,
+        padding: EdgeInsets.all(8),
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                //border: Border.all(color: Colors.grey),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 10,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            //color: Colors.green,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('images/profil.jpg'),
+                                  radius: 20,
+                                  //backgroundColor: ,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Xavi Lopez",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          ),
+                          Text(
+                            "1/1/2000 10:15",
+                            style: TextStyle(color: Colors.grey),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text(
+                              ".......................title here...........................")
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    listeImages[index],
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.favorite_border,
+                            size: 30,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  List<Widget> _buildImageGrid(Map<String, dynamic> dataxxx) {
     List<Widget> list = [];
 
     dataxxx.forEach((key, value) {
