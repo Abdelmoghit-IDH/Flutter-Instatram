@@ -41,25 +41,25 @@ class _AddImageState extends State<AddImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(AppTranslations.of(context).text("Add a photo")),
-          actions: [
-            // ignore: deprecated_member_use
-            FlatButton(
-                onPressed: () {
-                  setState(() {
-                    uploading = true;
-                  });
-                  uploadFile(myController.text)
-                      .whenComplete(() => Navigator.of(context).pop());
-                },
-                child: Text(
-                  AppTranslations.of(context).text("Upload"),
-                  style: TextStyle(color: Colors.white),
-                ))
-          ],
-        ),
-        body: Stack(
+      appBar: AppBar(
+        title: Text(AppTranslations.of(context).text("Add a photo")),
+        actions: [
+          // ignore: deprecated_member_use
+          FlatButton(
+              onPressed: () {
+                setState(() {
+                  uploading = true;
+                });
+                uploadFile(myController.text)
+                    .whenComplete(() => Navigator.of(context).pop());
+              },
+              child: Text(
+                AppTranslations.of(context).text("Upload"),
+                style: TextStyle(color: Colors.white),
+              ))
+        ],
+      ),
+      /*body: Stack(
           children: [
             Container(
               padding: EdgeInsets.all(4),
@@ -112,11 +112,115 @@ class _AddImageState extends State<AddImage> {
                   ))
                 : Container(),
           ],
-        ));
+        )*/
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.91,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                  //backgroundImage: _imaage != null ? FileImage(_imaage) : null,
+                  //radius: 100,
+                  //backgroundColor: brown,
+
+                  child: _imaage == null
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.add_a_photo_outlined,
+                            size: 40,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            //!uploading ? chooseImage() : null;
+                            var ad = AlertDialog(
+                              title: Text(AppTranslations.of(context)
+                                  .text("Choose photo from")),
+                              content: Container(
+                                height: 150,
+                                child: Column(
+                                  children: [
+                                    Divider(
+                                      color: Colors.black,
+                                    ),
+                                    Container(
+                                      width: 300,
+                                      color: Colors.orange.withOpacity(0.1),
+                                      child: ListTile(
+                                        leading: Icon(Icons.image),
+                                        title: Text(AppTranslations.of(context)
+                                            .text("Gallery")),
+                                        onTap: () {
+                                          !uploading
+                                              ? chooseImage(ImageSource.gallery)
+                                              : null;
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      width: 300,
+                                      color: Colors.orange.withOpacity(0.1),
+                                      child: ListTile(
+                                        leading: Icon(Icons.add_a_photo),
+                                        title: Text(AppTranslations.of(context)
+                                            .text("Camera")),
+                                        onTap: () {
+                                          !uploading
+                                              ? chooseImage(ImageSource.camera)
+                                              : null;
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) => ad);
+                          })
+                      : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              height: MediaQuery.of(context).size.height * 0.5,
+                              child: Image.file(_imaage)),
+                        )),
+              Theme(
+                data: ThemeData(
+                  primaryColor: Colors.orange,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  //..............................................................TextField
+                  child: TextField(
+                    controller: myController, //..text = "image title",
+                    //onChanged: (text) => {},
+                    textCapitalization: TextCapitalization.words,
+                    decoration: InputDecoration(
+                        //fillColor: Color(0x99D79D6A),
+                        filled: true,
+                        border: OutlineInputBorder(),
+                        hintText: AppTranslations.of(context)
+                            .text('Enter the photo title'),
+                        labelText: AppTranslations.of(context).text('Title'),
+                        icon: Icon(Icons.title)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
-  chooseImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+  chooseImage(ImageSource x) async {
+    final pickedFile = await picker.getImage(source: x);
     setState(() {
       _imaage = File(pickedFile?.path);
     });
