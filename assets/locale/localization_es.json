@@ -14,13 +14,19 @@
     "Add a photo":"Agregar una foto",
     "Photos of ":"Fotos de ",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3f500b0 (screen add a photo edited)
     "Upload":"Subir",
     "Title":"Título",
     "Enter the photo title":"Ingrese el título de la foto",
     "Camera":"Cámara",
     "Gallery":"Galería",
     "Choose photo from":"Elige una foto de"
+<<<<<<< HEAD
 =======
     "Upload":"Subir"
 >>>>>>> 3f0da27 (Hatim first commit in master)
+=======
+>>>>>>> 3f500b0 (screen add a photo edited)
 }
