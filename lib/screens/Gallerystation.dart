@@ -13,8 +13,7 @@ class Gallerystation extends StatefulWidget {
   _HomePageState createState() => _HomePageState(stationsName);
 }
 
-final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-    new GlobalKey<RefreshIndicatorState>();
+
 
 class _HomePageState extends State<Gallerystation> {
   String sname;
@@ -160,7 +159,7 @@ class _HomePageState extends State<Gallerystation> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
-            backgroundImage: AssetImage('images/profil.jpg'),
+            backgroundImage: AssetImage('assets/images/profil.jpg'),
             radius: 20,
             //backgroundColor: ,
           ),

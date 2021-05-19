@@ -105,7 +105,6 @@ class _AddImageState extends State<AddImage> {
       controller: myController,
       textCapitalization: TextCapitalization.words,
       decoration: InputDecoration(
-          //fillColor: Color(0x99D79D6A),
           filled: true,
           border: OutlineInputBorder(),
           hintText: AppTranslations.of(context).text('Enter the photo title'),

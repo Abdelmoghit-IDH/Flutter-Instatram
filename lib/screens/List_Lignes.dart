@@ -48,6 +48,7 @@ class _ListLignesState extends State<ListLignes> {
                         size: SizeConfig.blockSizeHorizontal * 8,
                       ),
                       onPressed: () {
+                        //************ButtomSheet pour afficher les paramétres de l'app***********/
                         showModalBottomSheet(
                             context: context,
                             builder: (context) {
@@ -57,7 +58,9 @@ class _ListLignesState extends State<ListLignes> {
                                     color: Theme.of(context).accentColor,
                                     child: ListTile(
                                       title: Text(
-                                        model.isSpanish ?"Ajustes":'Settings',
+                                        model.isSpanish
+                                            ? "Ajustes"
+                                            : 'Settings',
                                         style: TextStyle(
                                           fontSize:
                                               SizeConfig.blockSizeHorizontal *
@@ -69,7 +72,9 @@ class _ListLignesState extends State<ListLignes> {
                                   ),
                                   ListTile(
                                     leading: Text(
-                                      model.isSpanish ? "Claro / Oscuro":"Light / Dark",
+                                      model.isSpanish
+                                          ? "Claro / Oscuro"
+                                          : "Light / Dark",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize:
@@ -95,7 +100,9 @@ class _ListLignesState extends State<ListLignes> {
                                   ),
                                   ListTile(
                                     leading: Text(
-                                      model.isSpanish ? "Inglés / Español":"English / Spanish",
+                                      model.isSpanish
+                                          ? "Inglés / Español"
+                                          : "English / Spanish",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize:
@@ -113,7 +120,6 @@ class _ListLignesState extends State<ListLignes> {
                                         onChanged: (bool state) async {
                                           setState(() {
                                             model.toggleLanguage();
-                                            print(model.isSpanish);
                                           });
                                         },
                                       ),
@@ -210,9 +216,11 @@ class _ListLignesState extends State<ListLignes> {
         if (lignes[j].compareTo('T5') == 0) stationsT5.add(tram);
         if (lignes[j].compareTo('T6') == 0) stationsT6.add(tram);
       }
-      //............................................................trier tout les listes des lignes par l id
-      //.........................................................supposant que 2 id qui se suivent
-      //.........................................................correspondent a 2 stations qui se suivent
+
+      //...............trier tout les listes des lignes par l id...............
+      //...............supposant que 2 id qui se suivent.......................
+      //...............correspondent a 2 stations qui se suivent...............
+
       data.sortStation(stationsT1);
       data.sortStation(stationsT2);
       data.sortStation(stationsT3);
@@ -230,7 +238,8 @@ class _ListLignesState extends State<ListLignes> {
       AppTranslations.of(context).text("All Tram Stations"),
     ];
 
-    // ignore: unused_element
+    //* cette fonction est utilisée pour ajouter subTitle de chaque station par index */
+    
     String subTitleLigneStation(int index) {
       return index == 0
           ? AppTranslations.of(context).text("From") +
