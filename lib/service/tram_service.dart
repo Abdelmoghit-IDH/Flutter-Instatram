@@ -61,6 +61,4 @@ abstract class TramService extends ChopperService {
   bool isDarkModeTheme = false;
   bool isSpanishLanguage = false;
   bool isBottomSheetOn = false;
-
-  bool refresh;
 }
