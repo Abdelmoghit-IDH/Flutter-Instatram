@@ -6,7 +6,6 @@ import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scoped_model/scoped_model.dart';
-
 import '../models/tram.dart';
 import '../models/wholejson.dart';
 import '../service/tram_service.dart';
@@ -58,8 +57,7 @@ class _ListLignesState extends State<ListLignes> {
                                     color: Theme.of(context).accentColor,
                                     child: ListTile(
                                       title: Text(
-                                        AppTranslations.of(context)
-                                            .text("settings"),
+                                        model.isSpanish ?"Ajustes":'Settings',
                                         style: TextStyle(
                                           fontSize:
                                               SizeConfig.blockSizeHorizontal *
@@ -71,8 +69,7 @@ class _ListLignesState extends State<ListLignes> {
                                   ),
                                   ListTile(
                                     leading: Text(
-                                      AppTranslations.of(context)
-                                          .text("Light / Dark"),
+                                      model.isSpanish ? "Claro / Oscuro":"Light / Dark",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize:
@@ -98,8 +95,7 @@ class _ListLignesState extends State<ListLignes> {
                                   ),
                                   ListTile(
                                     leading: Text(
-                                      AppTranslations.of(context)
-                                          .text("English / Spanish"),
+                                      model.isSpanish ? "Inglés / Español":"English / Spanish",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize:
