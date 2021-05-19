@@ -32,7 +32,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-
+  
 // ignore: unused_element
 class _MyAppState extends State<MyApp> {
   AppTranslationsDelegate _newLocaleDelegate;

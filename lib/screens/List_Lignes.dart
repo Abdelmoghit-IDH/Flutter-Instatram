@@ -49,7 +49,7 @@ class _ListLignesState extends State<ListLignes> {
                         size: SizeConfig.blockSizeHorizontal * 8,
                       ),
                       onPressed: () {
-                        showBottomSheet(
+                        showModalBottomSheet(
                             context: context,
                             builder: (context) {
                               return Wrap(

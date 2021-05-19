@@ -146,34 +146,17 @@ class _AddImageState extends State<AddImage> {
     ref = firebase_storage.FirebaseStorage.instance
         .ref()
         .child('stations/$sname/$filename');
-    await ref.putFile(_imaage).whenComplete(() async {
+    await ref
+        .putFile(
+            _imaage,
+            SettableMetadata(customMetadata: {
+              'uploaded_by': 'abdelmoghit',
+              'description': 'Some description...'
+            }))
+        .whenComplete(() async {
       await FileStorageService.loadImage(sname);
     });
   }
-  /*Future chooseImage() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-    if (result == null) return;
-    final path = result.files.single.path;
-    setState(() => file = File(path));
-  }
-
-  Future uploadFile(String fileName) async {
-    if (file == null) return;
-
-    final destination = 'stations/$sname/$fileName';
-
-    task = FirebaseApi.uploadFile(destination, file);
-    setState(() {});
-
-    if (task == null) return;
-
-    final snapshot = await task.whenComplete(() async {
-      await FileStorageService.loadImage(sname);
-    });
-    final urlDownload = await snapshot.ref.getDownloadURL();
-
-    print('Download-Link: $urlDownload');
-  }*/
 
   @override
   void initState() {

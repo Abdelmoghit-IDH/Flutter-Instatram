@@ -7,7 +7,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class DetailImageStation extends StatelessWidget {
   static final String title = 'Image Gallery';
   final String stationsName;
@@ -43,7 +42,7 @@ class _MainPageState extends State<MainPage> {
               child: Column(
                 children: [
                   FutureBuilder(
-                      future: getImage(context, "ronaldo.jpg"),
+                      future: getImage(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return Container(
@@ -83,9 +82,10 @@ class _MainPageState extends State<MainPage> {
             )));
   }
 
-  Future<Widget> getImage(BuildContext context, String imageName) async {
+  Future<Widget> getImage(BuildContext context) async {
     Image image;
-    await FileStorageService.loadImage(context, imageName).then((value) {
+    String nothing;
+    await FileStorageService.loadImage(context, nothing).then((value) {
       image = Image.network(
         value.toString(),
         fit: BoxFit.scaleDown,

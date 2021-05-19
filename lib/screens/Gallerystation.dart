@@ -66,6 +66,9 @@ class _HomePageState extends State<Gallerystation> {
                         itemCount: listeImages.length,
                         padding: EdgeInsets.all(8),
                         itemBuilder: (context, index) {
+                          final image = snapshot.data;
+                          print(
+                              "The content of this image is the following $image");
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: 8),
                             child: Container(
@@ -166,16 +169,6 @@ class _HomePageState extends State<Gallerystation> {
                             ),
                           );
                         });
-                    /*return GridView.custom(
-                          shrinkWrap: true,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            mainAxisSpacing: 5.0,
-                            crossAxisSpacing: 5.0,
-                          ),
-                          childrenDelegate: SliverChildListDelegate(
-                              _buildImageGrid(snapshot.data.data())),
-                        );*/
                   } else {
                     // Show a loading indicator while waiting for the movies
                     return Center(
@@ -213,9 +206,10 @@ class _HomePageState extends State<Gallerystation> {
       );
       //dataxxx[key].
     });
-
+    print('the content of this list is : $dataxxx');
     return list;
   }
+
   //todo: this future function is used to refresh the screen
   Future<Null> refresh() async {
     await Future.delayed(Duration(seconds: 1));
@@ -226,7 +220,8 @@ class _HomePageState extends State<Gallerystation> {
 class FileStorageService extends ChangeNotifier {
   FileStorageService();
 
-  static Future<dynamic> loadImage(String stationName) async {
+  static Future<List<Map<String, dynamic>>> loadImage(
+      String stationName) async {
     await FirebaseFirestore.instance
         .collection('/stations')
         .doc(stationName)
@@ -234,13 +229,28 @@ class FileStorageService extends ChangeNotifier {
     int i = 0;
 
     Map<String, String> tb = {};
+    Map<String, FullMetadata> meta = {};
+    List<Map<String, dynamic>> files = [];
 
     await FirebaseStorage.instance
         .ref()
         .child('stations')
         .child(stationName)
         .listAll()
-        .then((value) => value.items.forEach((element) {
+        .then((value) => value.items.forEach((element) async {
+
+              element.getMetadata().then((value) async {
+                meta.putIfAbsent(i.toString()+'s', () => value);
+
+                i++;
+
+                await FirebaseFirestore.instance
+                    .collection('/stations')
+                    .doc(stationName)
+                    .update(meta);
+                    
+              });
+
               element.getDownloadURL().then((value) async {
                 tb.putIfAbsent(i.toString(), () => value);
 
@@ -257,5 +267,6 @@ class FileStorageService extends ChangeNotifier {
         .collection('/stations')
         .doc(stationName)
         .update({"bka": FieldValue.delete()});
+    return files;
   }
 }
