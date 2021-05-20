@@ -20,6 +20,7 @@ class _ListLignesState extends State<ListLignes> {
         builder: (BuildContext context, Widget child, MainModel model) {
       //**cette variable est utilisée pour avoir le theme de la dernier ouverture**/
       theActualThemeIsdark = model.darkTheme;
+      isSpanishLanguage = model.isSpanish;
       return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: Column(
@@ -159,50 +160,51 @@ class _ListLignesState extends State<ListLignes> {
 
     //***List qui coontient toute les chaines de character des noms des lignes***//
     List<String> lignes = [
-      AppTranslations.of(context).text("Line") + " T1",
-      AppTranslations.of(context).text("Line") + " T2",
-      AppTranslations.of(context).text("Line") + " T3",
-      AppTranslations.of(context).text("Line") + " T4",
-      AppTranslations.of(context).text("Line") + " T5",
-      AppTranslations.of(context).text("Line") + " T6",
-      AppTranslations.of(context).text("All Tram Stations"),
+      isSpanishLanguage ? "Línea":"Line" + " T1",
+      isSpanishLanguage ? "Línea":"Line" + " T2",
+      isSpanishLanguage ? "Línea":"Line" + " T3",
+      isSpanishLanguage ? "Línea":"Line" + " T4",
+      isSpanishLanguage ? "Línea":"Line" + " T5",
+      isSpanishLanguage ? "Línea":"Line" + " T6",
+      isSpanishLanguage ? "Todas estaciones":"All Tram Stations",
     ];
 
     //***Cette fonction est utilisée pour ajouter subTitle à station par index***//
     String subTitleLigneStation(int index) {
       return index == 0
-          ? AppTranslations.of(context).text("From") +
+          ? isSpanishLanguage ? "De ":"From" +
               data.stationsT1[0].name +
-              AppTranslations.of(context).text("To") +
+              (isSpanishLanguage ? " ... a ":" ... to ")+
               data.stationsT1[data.stationsT1.length - 1].name
           : index == 1
-              ? AppTranslations.of(context).text("From") +
+              ? isSpanishLanguage ? "De ":"From" +
                   data.stationsT2[0].name +
-                  AppTranslations.of(context).text("To") +
+                  (isSpanishLanguage ? " ... a ":" ... to ") +
                   data.stationsT2[data.stationsT2.length - 1].name
               : index == 2
-                  ? AppTranslations.of(context).text("From") +
+                  ? isSpanishLanguage ? "De ":"From" +
                       data.stationsT3[0].name +
-                      AppTranslations.of(context).text("To") +
+                      (isSpanishLanguage ? " ... a ":" ... to ") +
                       data.stationsT3[data.stationsT3.length - 1].name
                   : index == 3
-                      ? AppTranslations.of(context).text("From") +
+                      ? isSpanishLanguage ? "De ":"From" +
                           data.stationsT4[0].name +
-                          AppTranslations.of(context).text("To") +
+                          (isSpanishLanguage ? " ... a ":" ... to ") +
                           data.stationsT4[data.stationsT4.length - 1].name
                       : index == 4
-                          ? AppTranslations.of(context).text("From") +
+                          ? isSpanishLanguage ? "De ":"From" +
                               data.stationsT5[0].name +
-                              AppTranslations.of(context).text("To") +
+                              (isSpanishLanguage ? " ... a ":" ... to ") +
                               data.stationsT5[data.stationsT5.length - 1].name
                           : index == 5
-                              ? AppTranslations.of(context).text("From") +
+                              ? isSpanishLanguage ? "De ":"From" +
                                   data.stationsT6[0].name +
-                                  AppTranslations.of(context).text("To") +
+                                  (isSpanishLanguage ? " ... a ":" ... to ") +
                                   data.stationsT6[data.stationsT6.length - 1]
                                       .name
                               : "";
     }
+
     //***Return list des buttons des lignes ***//
     return ListView.builder(
       itemCount: lignes.length,
