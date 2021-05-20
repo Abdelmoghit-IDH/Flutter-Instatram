@@ -28,7 +28,6 @@ class _ListLignesState extends State<ListLignes> {
             children: <Widget>[
               Expanded(
                 child: Container(
-                  height: SizeConfig.safeBlockVertical * 10,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -163,12 +162,12 @@ class _ListLignesState extends State<ListLignes> {
 
     //***List qui coontient toute les chaines de character des noms des lignes***//
     List<String> lignes = [
-      isSpanishLanguage ? "Línea" : "Line" + " T1",
-      isSpanishLanguage ? "Línea" : "Line" + " T2",
-      isSpanishLanguage ? "Línea" : "Line" + " T3",
-      isSpanishLanguage ? "Línea" : "Line" + " T4",
-      isSpanishLanguage ? "Línea" : "Line" + " T5",
-      isSpanishLanguage ? "Línea" : "Line" + " T6",
+      isSpanishLanguage ? "Línea" + " T1" : "Line" + " T1",
+      isSpanishLanguage ? "Línea" + " T2" : "Line" + " T2",
+      isSpanishLanguage ? "Línea" + " T3" : "Line" + " T3",
+      isSpanishLanguage ? "Línea" + " T4" : "Line" + " T4",
+      isSpanishLanguage ? "Línea" + " T5" : "Line" + " T5",
+      isSpanishLanguage ? "Línea" + " T6" : "Line" + " T6",
       isSpanishLanguage ? "Todas estaciones" : "All Tram Stations",
     ];
     //***Des fontions utilile pour construire la fontion subTitleLigneStation()***/
