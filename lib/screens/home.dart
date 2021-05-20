@@ -7,6 +7,8 @@ import 'TramListMap.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
+  //***Constractor home class: index=7 valeurs par default**/
+  //***index=7 tous afficher toute les stations**/
   Home({
     Key key,
     this.index=7,

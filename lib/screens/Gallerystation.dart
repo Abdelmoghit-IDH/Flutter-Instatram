@@ -2,7 +2,7 @@ import 'package:apiflutter/Language/AppTranslations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'uploadImage.dart';
+import 'Upload_Image.dart';
 
 
 class Gallerystation extends StatefulWidget {

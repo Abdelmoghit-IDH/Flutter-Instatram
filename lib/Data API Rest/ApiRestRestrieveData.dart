@@ -2,7 +2,7 @@ import 'package:apiflutter/Global/SizeConfig.dart';
 import 'package:apiflutter/Language/AppTranslations.dart';
 import 'package:apiflutter/models/tram.dart';
 import 'package:apiflutter/models/wholejson.dart';
-import 'package:apiflutter/screens/home.dart';
+import 'package:apiflutter/screens/Home.dart';
 import 'package:apiflutter/service/tram_service.dart';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
