@@ -13,7 +13,6 @@ import 'Screens/splashsScreen.dart';
 import 'screens/WelcomeScreen.dart';
 import 'service/tram_service.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -32,8 +31,6 @@ class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
-
-  
 
 class _MyAppState extends State<MyApp> {
   AppTranslationsDelegate _newLocaleDelegate;
@@ -92,8 +89,6 @@ class BodyOfTheProvider extends StatefulWidget {
   _BodyOfTheProviderState createState() => _BodyOfTheProviderState();
 }
 
-
-
 class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
   @override
   Widget build(BuildContext context) {
@@ -128,4 +123,3 @@ class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
     );
   }
 }
-
