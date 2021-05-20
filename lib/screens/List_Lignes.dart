@@ -2,12 +2,9 @@ import 'package:apiflutter/Global/Global_variables.dart';
 import 'package:apiflutter/Global/SizeConfig.dart';
 import 'package:apiflutter/Language/AppTranslations.dart';
 import 'package:apiflutter/shared_data/MainModel.dart';
-import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scoped_model/scoped_model.dart';
-import '../models/tram.dart';
-import '../models/wholejson.dart';
 import '../service/tram_service.dart';
 import 'home.dart';
 
@@ -24,127 +21,41 @@ class _ListLignesState extends State<ListLignes> {
       theActualThemeIsdark = model.darkTheme;
       return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: Builder(builder: (BuildContext context) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                SizedBox(height: SizeConfig.blockSizeHorizontal * 2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: SizeConfig.blockSizeHorizontal * 8,
+          body: Column(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  height: SizeConfig.safeBlockVertical * 10,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.arrow_back_ios_outlined,
+                          size: SizeConfig.blockSizeHorizontal * 8,
+                        ),
+                        onPressed: () => Navigator.pop(context),
                       ),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    Text(
-                      model.isSpanish ? 'Lista de líneas' : 'Lines list',
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColorDark,
-                        fontFamily: 'Jura-VariableFont',
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
+                      Text(
+                        model.isSpanish ? 'Lista de líneas' : 'Lines list',
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColorDark,
+                          fontFamily: 'Jura-VariableFont',
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.settings,
-                        size: SizeConfig.blockSizeHorizontal * 8,
-                      ),
-                      onPressed: () {
-                        //************ButtomSheet pour afficher les paramétres de l'app***********/
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return Wrap(
-                                children: [
-                                  Container(
-                                    color: Theme.of(context).accentColor,
-                                    child: ListTile(
-                                      title: Text(
-                                        model.isSpanish
-                                            ? "Ajustes"
-                                            : 'Settings',
-                                        style: TextStyle(
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal *
-                                                  5,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  ListTile(
-                                    leading: Text(
-                                      model.isSpanish
-                                          ? "Claro / Oscuro"
-                                          : "Light / Dark",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal * 5,
-                                      ),
-                                    ),
-                                    trailing: Transform.scale(
-                                      scale: 1.5,
-                                      child: Switch(
-                                        inactiveThumbColor:
-                                            Theme.of(context).accentColor,
-                                        activeColor:
-                                            Theme.of(context).accentColor,
-                                        value: model.darkTheme,
-                                        onChanged: (bool state) async {
-                                          setState(() {
-                                            theActualThemeIsdark = state;
-                                            model.toggleTheme();
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  ListTile(
-                                    leading: Text(
-                                      model.isSpanish
-                                          ? "Inglés / Español"
-                                          : "English / Spanish",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal * 5,
-                                      ),
-                                    ),
-                                    trailing: Transform.scale(
-                                      scale: 1.5,
-                                      child: Switch(
-                                        activeColor:
-                                            Theme.of(context).accentColor,
-                                        inactiveThumbColor:
-                                            Theme.of(context).accentColor,
-                                        value: model.isSpanish,
-                                        onChanged: (bool state) async {
-                                          setState(() {
-                                            model.toggleLanguage();
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            });
-                      },
-                    )
-                  ],
+                      Icon(null),
+                    ],
+                  ),
                 ),
-                Container(
-                  height: SizeConfig.safeBlockVertical * 90,
-                  child: _TramList(context),
-                ),
-              ],
-            );
-          }));
+              ),
+              Container(
+                height: SizeConfig.safeBlockVertical * 90,
+                child: _TramList(context),
+              ),
+            ],
+          ));
     });
   }
 
@@ -163,7 +74,6 @@ class _ListLignesState extends State<ListLignes> {
     ];
 
     //* cette fonction est utilisée pour ajouter subTitle à station par index */
-
     String subTitleLigneStation(int index) {
       return index == 0
           ? AppTranslations.of(context).text("From") +
@@ -194,7 +104,8 @@ class _ListLignesState extends State<ListLignes> {
                               ? AppTranslations.of(context).text("From") +
                                   data.stationsT6[0].name +
                                   AppTranslations.of(context).text("To") +
-                                  data.stationsT6[data.stationsT6.length - 1].name
+                                  data.stationsT6[data.stationsT6.length - 1]
+                                      .name
                               : "";
     }
 
@@ -234,10 +145,13 @@ class _ListLignesState extends State<ListLignes> {
                       ],
                     ),
                   ),
-                  Text(
-                    subTitleLigneStation(index),
-                    style:
-                        TextStyle(color: Theme.of(context).primaryColorLight),
+                  Center(
+                    child: Text(
+                      subTitleLigneStation(index),
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(color: Theme.of(context).primaryColorLight),
+                    ),
                   )
                 ],
               ),

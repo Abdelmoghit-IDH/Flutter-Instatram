@@ -9,7 +9,7 @@ import 'TramListMap.dart';
 class Home extends StatefulWidget {
   Home({
     Key key,
-    this.index,
+    this.index=7,
   }) : super(key: key);
   final index;
 

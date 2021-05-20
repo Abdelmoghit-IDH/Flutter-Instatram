@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 bool theActualThemeIsdark = false;
 bool isSpanishLanguage = false;
 
-//** Index all stations**/
-const int indexAllStations = 7;
-
 //**********************theme**********************/
 // Todo: Dark Theme
 ThemeData darkTheme = ThemeData(

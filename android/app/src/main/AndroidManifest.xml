@@ -2,7 +2,7 @@
     package="com.example.apiflutter">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="apiflutter"
+        android:label="InstaTram"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
