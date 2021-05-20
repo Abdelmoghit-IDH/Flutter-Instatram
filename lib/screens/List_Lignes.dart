@@ -25,7 +25,9 @@ class _ListLignesState extends State<ListLignes> {
       return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
+              SizedBox(height: SizeConfig.blockSizeVertical * 2),
               Expanded(
                 child: Container(
                   child: Row(
@@ -145,9 +147,12 @@ class _ListLignesState extends State<ListLignes> {
                   ),
                 ),
               ),
-              Container(
-                height: SizeConfig.safeBlockVertical * 90,
-                child: _tramList(context),
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: SizeConfig.safeBlockVertical * 90,
+                  child: _tramList(context),
+                ),
               ),
             ],
           ));
@@ -222,6 +227,7 @@ class _ListLignesState extends State<ListLignes> {
     //***Return list des buttons des lignes ***//
     return ListView.builder(
       itemCount: lignes.length,
+      shrinkWrap: true,
       padding: EdgeInsets.all(8),
       itemBuilder: (context, index) {
         return Card(
