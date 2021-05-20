@@ -29,6 +29,7 @@ class _TramListMapState extends State<TramListMap> {
       getJsonFile("assets/map_styles/light.json").then(setMapStyle);
     }
   }
+
   //***Fonction utile pour fetch fichier json***/
   Future<String> getJsonFile(String path) async {
     return await rootBundle.loadString(path);
@@ -75,7 +76,8 @@ class _TramListMapState extends State<TramListMap> {
         Marker(
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
           infoWindow: InfoWindow(
-              title: element.name, snippet: "........EMPTY.FOR.NOW........"),
+            title: element.name,
+          ),
           markerId: MarkerId(element.name),
           position: LatLng(element.lat, element.lon),
         ),

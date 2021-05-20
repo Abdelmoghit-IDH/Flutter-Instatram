@@ -1,4 +1,5 @@
 import 'package:apiflutter/Global/SizeConfig.dart';
+import 'package:apiflutter/screens/StationMap.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -54,7 +55,8 @@ class _TramsListState extends State<TramsList> {
           indicatorStyle: IndicatorStyle(
             width: 40,
             height: 40,
-            indicator: _IndicatorExample(number: '${index + 1}'),
+            indicator:
+                _IndicatorExample(station: listTarget[index], index: index + 1),
             drawGap: true,
           ),
           beforeLineStyle: LineStyle(
@@ -71,13 +73,13 @@ class _TramsListState extends State<TramsList> {
 //...........................................se trouve a gauche de chaque statio
 //...........................................dans notre cas une icone comme marker (pour l'instant)
 class _IndicatorExample extends StatelessWidget {
-  const _IndicatorExample({Key key, this.number}) : super(key: key);
+  const _IndicatorExample({Key key, this.station, this.index})
+      : super(key: key);
 
-  final String
-      number; //......................au cas ou on fait un traitement en ralation avec sa position
+  final TramUtile station;
+  final int index;
   @override
   Widget build(BuildContext context) {
-    int num = int.parse(number);
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
@@ -89,22 +91,28 @@ class _IndicatorExample extends StatelessWidget {
         ),
       ),
       child: Center(
-          child: //Text(number,style: const TextStyle(fontSize: 15),),
-              IconButton(
+          child: IconButton(
         padding: const EdgeInsets.all(0.0),
         icon: Icon(
           Icons.location_pin,
-          color: num % 4 == 0
+          color: index % 4 == 0
               ? Colors.red
-              : num % 4 == 1
+              : index % 4 == 1
                   ? Colors.blue
-                  : num % 4 == 2
+                  : index % 4 == 2
                       ? Colors.green
-                      : num % 4 == 3
+                      : index % 4 == 3
                           ? Colors.yellow
                           : null,
         ),
-        onPressed: () {},
+        onPressed: () {
+          //todo
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => StationMap(station: this.station)),
+          );
+        },
       )),
     );
   }
