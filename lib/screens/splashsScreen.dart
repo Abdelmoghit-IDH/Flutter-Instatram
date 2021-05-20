@@ -15,6 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     startTime();
   }
+  //***Aprés 5 secondes => Aller au screen Welcome to barcelona ***/
 
   startTime() async {
     var duration = new Duration(seconds: 5);

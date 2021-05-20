@@ -18,6 +18,7 @@ class _ListLignesState extends State<ListLignes> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(
         builder: (BuildContext context, Widget child, MainModel model) {
+      //**cette variable est utilisée pour avoir le theme de la dernier ouverture**/
       theActualThemeIsdark = model.darkTheme;
       return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -31,8 +32,8 @@ class _ListLignesState extends State<ListLignes> {
                     children: [
                       IconButton(
                         icon: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: SizeConfig.blockSizeHorizontal * 8,
+                          Icons.arrow_back_ios_sharp,
+                          size: SizeConfig.blockSizeHorizontal * 6,
                         ),
                         onPressed: () => Navigator.pop(context),
                       ),
@@ -45,24 +46,118 @@ class _ListLignesState extends State<ListLignes> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      Icon(null),
+                      IconButton(
+                        icon: Icon(
+                          Icons.settings,
+                          size: SizeConfig.blockSizeHorizontal * 8,
+                        ),
+                        onPressed: () {
+                          //************ButtomSheet pour afficher les paramétres de l'app***********/
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return Wrap(
+                                  children: [
+                                    Container(
+                                      color: Theme.of(context).accentColor,
+                                      child: ListTile(
+                                        title: Text(
+                                          model.isSpanish
+                                              ? "Ajustes"
+                                              : 'Settings',
+                                          style: TextStyle(
+                                            fontSize:
+                                                SizeConfig.blockSizeHorizontal *
+                                                    5,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    ListTile(
+                                      leading: Text(
+                                        model.isSpanish
+                                            ? "Claro / Oscuro"
+                                            : "Light / Dark",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal *
+                                                  5,
+                                        ),
+                                      ),
+                                      trailing: Transform.scale(
+                                        scale: 1.5,
+                                        child: Switch(
+                                          inactiveThumbColor:
+                                              Theme.of(context).accentColor,
+                                          activeColor:
+                                              Theme.of(context).accentColor,
+                                          value: model.darkTheme,
+                                          onChanged: (bool state) async {
+                                            setState(() {
+                                              //**Changer le theme OnSwitch**/
+                                              theActualThemeIsdark = state;
+                                              model.toggleTheme();
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    ListTile(
+                                      leading: Text(
+                                        model.isSpanish
+                                            ? "Inglés / Español"
+                                            : "English / Spanish",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal *
+                                                  5,
+                                        ),
+                                      ),
+                                      trailing: Transform.scale(
+                                        scale: 1.5,
+                                        child: Switch(
+                                          activeColor:
+                                              Theme.of(context).accentColor,
+                                          inactiveThumbColor:
+                                              Theme.of(context).accentColor,
+                                          value: model.isSpanish,
+                                          onChanged: (bool state) async {
+                                            setState(() {
+                                              //***Changer la langue OnSwitch***/
+                                              model.toggleLanguage();
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                      )
                     ],
                   ),
                 ),
               ),
               Container(
                 height: SizeConfig.safeBlockVertical * 90,
-                child: _TramList(context),
+                child: _tramList(context),
               ),
             ],
           ));
     });
   }
 
-  // ignore: non_constant_identifier_names
-  ListView _TramList(BuildContext context) {
+//**Cette fonction est utilisée pour construire les button des lignes**/
+
+  ListView _tramList(BuildContext context) {
+    //***On declare cette variable pour prendre les données utile depuis Provider***//
     TramService data = Provider.of<TramService>(context);
 
+    //***List qui coontient toute les chaines de character des noms des lignes***//
     List<String> lignes = [
       AppTranslations.of(context).text("Line") + " T1",
       AppTranslations.of(context).text("Line") + " T2",
@@ -73,7 +168,7 @@ class _ListLignesState extends State<ListLignes> {
       AppTranslations.of(context).text("All Tram Stations"),
     ];
 
-    //* cette fonction est utilisée pour ajouter subTitle à station par index */
+    //***Cette fonction est utilisée pour ajouter subTitle à station par index***//
     String subTitleLigneStation(int index) {
       return index == 0
           ? AppTranslations.of(context).text("From") +
@@ -108,7 +203,7 @@ class _ListLignesState extends State<ListLignes> {
                                       .name
                               : "";
     }
-
+    //***Return list des buttons des lignes ***//
     return ListView.builder(
       itemCount: lignes.length,
       padding: EdgeInsets.all(8),
@@ -156,6 +251,8 @@ class _ListLignesState extends State<ListLignes> {
                 ],
               ),
               onPressed: () {
+                //***On clique buttom tab 'index' => Aller au screen Home(index)***//
+                //***Il faut noté que le parametre index represente le button de chaque***/
                 Navigator.push(
                   context,
                   MaterialPageRoute(

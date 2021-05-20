@@ -22,16 +22,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           children: [
             Container(
               height: SizeConfig.safeBlockVertical * 75,
+              width: double.infinity,
               child: Column(
                 children: [
                   SizedBox(
                     height: SizeConfig.safeBlockVertical * 4,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Icon(null),
+                      SizedBox(height: SizeConfig.blockSizeHorizontal * 6),
                       logoWidget("InstaTram"),
+                      SizedBox(height: SizeConfig.blockSizeHorizontal * 6),
                       IconButton(
                         icon: Icon(
                           Icons.settings,
@@ -82,6 +85,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                           value: model.darkTheme,
                                           onChanged: (bool state) async {
                                             setState(() {
+                                              //**Changer le theme OnSwitch**/
                                               theActualThemeIsdark = state;
                                               model.toggleTheme();
                                             });
@@ -111,6 +115,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                           value: model.isSpanish,
                                           onChanged: (bool state) async {
                                             setState(() {
+                                               //***Changer la langue OnSwitch***/
                                               model.toggleLanguage();
                                             });
                                           },

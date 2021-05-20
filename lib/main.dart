@@ -80,9 +80,10 @@ class BodyOfTheProvider extends StatefulWidget {
         _lightTheme = lightTheme,
         _newLocaleDelegate = newLocaleDelegate,
         super(key: key);
-
+  //***Definir ces deux variables pour changer le mode***/
   final ThemeData _darkTheme;
   final ThemeData _lightTheme;
+  //***Definir cette variable pour le changement de la langue***/
   final AppTranslationsDelegate _newLocaleDelegate;
 
   @override
@@ -92,6 +93,7 @@ class BodyOfTheProvider extends StatefulWidget {
 class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
   @override
   Widget build(BuildContext context) {
+    //***ScopedModelDescendant: utilisée cette class pour faciliter la mise a jour du theme***/
     return ScopedModelDescendant<MainModel>(
       builder: (BuildContext context, Widget child, MainModel model) {
         return MaterialApp(
@@ -106,6 +108,9 @@ class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
           locale: Locale('en', 'EN'),
           supportedLocales: application.supportedLocales(),
           localeResolutionCallback: (locale, supportedLocales) {
+            //***Ce test est utilisée pour changer la langue en ce basant sur 
+            //***la valeur de la variable is spanish, si true le language de l"app
+            //***devient espagnol, anglais sinon  ***/
             if (model.isSpanish) {
               return supportedLocales.last;
             } else {
@@ -113,6 +118,7 @@ class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
             }
           },
           initialRoute: '/',
+          //***Dans cette partie en defini les class des differentes screen pour la navigation***/
           routes: {
             '/': (context) => SplashScreen(),
             '/ListLignes': (context) => ListLignes(),
