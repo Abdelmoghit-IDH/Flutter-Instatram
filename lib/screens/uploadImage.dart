@@ -71,8 +71,8 @@ class _AddImageState extends State<AddImage> {
                                 //..................boutton pour ajouter image
                                 icon: Icon(
                                   Icons.add_a_photo_outlined,
-                                  size: 40,
-                                  color: Colors.black,
+                                  size: 50,
+                                  color: Theme.of(context).primaryColorDark,
                                 ),
                                 onPressed: onClickAddPhoto)
                             : Padding(
@@ -109,7 +109,11 @@ class _AddImageState extends State<AddImage> {
           border: OutlineInputBorder(),
           hintText: AppTranslations.of(context).text('Enter the photo title'),
           labelText: AppTranslations.of(context).text('Title'),
-          icon: Icon(Icons.title)),
+          icon: Icon(
+            Icons.title,
+            size: 35,
+            color: Theme.of(context).primaryColorDark,
+          )),
     );
   }
 

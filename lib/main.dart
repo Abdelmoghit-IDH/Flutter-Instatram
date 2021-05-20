@@ -10,6 +10,7 @@ import 'Language/AppTranslationsDelegate.dart';
 import 'Language/Application.dart';
 import 'Screens/List_Lignes.dart';
 import 'Screens/splashsScreen.dart';
+import 'screens/WelcomeScreen.dart';
 import 'service/tram_service.dart';
 
 
@@ -33,12 +34,14 @@ class MyApp extends StatefulWidget {
 }
 
   
-// ignore: unused_element
+
 class _MyAppState extends State<MyApp> {
   AppTranslationsDelegate _newLocaleDelegate;
-  // *inialize model package that help us to pick up mode language after reload
+
+  //* inialize model package that help us to pick up mode language after reload
   //* scoped_model is like provider package, we use it here because its simple also to avoid error causing by
   //* the use of two provider "provider and changeNotifierProvider"
+
   final MainModel _model = MainModel();
 
   @override
@@ -118,6 +121,7 @@ class _BodyOfTheProviderState extends State<BodyOfTheProvider> {
           routes: {
             '/': (context) => SplashScreen(),
             '/ListLignes': (context) => ListLignes(),
+            '/WelcomeScreen': (context) => WelcomeScreen(),
           },
         );
       },

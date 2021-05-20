@@ -80,6 +80,12 @@ flutter:
     - family: Jura-VariableFont
       fonts:
         - asset: assets/fonts/Jura-VariableFont_wght.ttf
+    - family: Pattaya-Regular
+      fonts:
+        - asset: assets/fonts/Pattaya-Regular.ttf
+    - family: Celesse
+      fonts:
+        - asset: assets/fonts/Celesse-Regular.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -21,6 +21,7 @@ class _TramListMapState extends State<TramListMap> {
   bool isMapCreated = false;
   GoogleMapController _controller;
 
+  //************Cette fonction est utilisée pour changer la couleur de la Map**********/
   changeMapMode() {
     if (theActualThemeIsdark) {
       getJsonFile("assets/map_styles/dark.json").then(setMapStyle);
@@ -28,7 +29,7 @@ class _TramListMapState extends State<TramListMap> {
       getJsonFile("assets/map_styles/light.json").then(setMapStyle);
     }
   }
-
+  //***Fonction utile pour fetch fichier json***/
   Future<String> getJsonFile(String path) async {
     return await rootBundle.loadString(path);
   }
@@ -56,7 +57,7 @@ class _TramListMapState extends State<TramListMap> {
   Container _buildTramList(BuildContext context) {
     TramService data = Provider.of<TramService>(context);
     //...................ce fichier ou n a l'acces depuis n'importe ou dans le projet
-    //.................................on reprend l'un des list dont on a beasoin
+    //...................on reprend l'un des list dont on a beasoin
     List<TramUtile> listTarget;
     if (widget.index == 1) listTarget = data.stationsT1;
     if (widget.index == 2) listTarget = data.stationsT2;

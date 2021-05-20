@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   route() {
-    Navigator.pushReplacementNamed(context, '/ListLignes');
+    Navigator.pushReplacementNamed(context, '/WelcomeScreen');
   }
 
   Widget build(BuildContext context) {

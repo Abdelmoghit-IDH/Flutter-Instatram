@@ -32,7 +32,13 @@ class _ListLignesState extends State<ListLignes> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Icon(null),
+                    IconButton(
+                      icon: Icon(
+                        Icons.arrow_back_ios_outlined,
+                        size: SizeConfig.blockSizeHorizontal * 8,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
                     Text(
                       model.isSpanish ? 'Lista de líneas' : 'Lines list',
                       style: TextStyle(
@@ -238,8 +244,8 @@ class _ListLignesState extends State<ListLignes> {
       AppTranslations.of(context).text("All Tram Stations"),
     ];
 
-    //* cette fonction est utilisée pour ajouter subTitle de chaque station par index */
-    
+    //* cette fonction est utilisée pour ajouter subTitle à station par index */
+
     String subTitleLigneStation(int index) {
       return index == 0
           ? AppTranslations.of(context).text("From") +
