@@ -29,7 +29,7 @@ class _ListLignesState extends State<ListLignes> {
               Expanded(
                 child: Container(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
                         icon: Icon(
@@ -168,7 +168,6 @@ class _ListLignesState extends State<ListLignes> {
       isSpanishLanguage ? "Línea" + " T4" : "Line" + " T4",
       isSpanishLanguage ? "Línea" + " T5" : "Line" + " T5",
       isSpanishLanguage ? "Línea" + " T6" : "Line" + " T6",
-      isSpanishLanguage ? "Todas estaciones" : "All Tram Stations",
     ];
     //***Des fontions utilile pour construire la fontion subTitleLigneStation()***/
     String from(bool state) {

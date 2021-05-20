@@ -1,5 +1,6 @@
 import 'package:apiflutter/Global/Global_variables.dart';
 import 'package:apiflutter/Global/SizeConfig.dart';
+import 'package:apiflutter/Language/AppTranslations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -72,7 +73,13 @@ class _StationMapState extends State<StationMap> {
     List<Marker> markers = [
       Marker(
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-        infoWindow: InfoWindow(title: station.name, snippet: station.line),
+        infoWindow: InfoWindow(
+            title: station.name,
+            snippet: ".... " +
+                AppTranslations.of(context).text("Line") +
+                " " +
+                station.line +
+                " ...."),
         markerId: MarkerId(station.name),
         position: LatLng(station.lat, station.lon),
       ),
