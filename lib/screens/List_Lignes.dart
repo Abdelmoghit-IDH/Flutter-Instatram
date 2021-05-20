@@ -215,9 +215,7 @@ class _ListLignesState extends State<ListLignes> {
           break;
 
         default:
-          {
-            return "";
-          }
+          return "";
           break;
       }
     }

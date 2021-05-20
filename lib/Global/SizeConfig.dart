@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 
 //We define this class to config the size of the screen and keep 
-//ou app responsive which mean the app adapt with all screen sizes
+//our app responsive which mean the app adapt with all screen sizes
 
 class SizeConfig {
  static MediaQueryData _mediaQueryData;
