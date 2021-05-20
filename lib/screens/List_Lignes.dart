@@ -1,6 +1,5 @@
 import 'package:apiflutter/Global/Global_variables.dart';
 import 'package:apiflutter/Global/SizeConfig.dart';
-import 'package:apiflutter/Language/AppTranslations.dart';
 import 'package:apiflutter/shared_data/MainModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,11 +15,13 @@ class ListLignes extends StatefulWidget {
 class _ListLignesState extends State<ListLignes> {
   @override
   Widget build(BuildContext context) {
+    //***On declare cette variable pour prendre les données utile depuis Provider***//
+    TramService data = Provider.of<TramService>(context);
     return ScopedModelDescendant<MainModel>(
         builder: (BuildContext context, Widget child, MainModel model) {
       //**cette variable est utilisée pour avoir le theme de la dernier ouverture**/
       theActualThemeIsdark = model.darkTheme;
-      isSpanishLanguage = model.isSpanish;
+      data.isSpanishLanguage = model.isSpanish;
       return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: Column(
@@ -38,6 +39,7 @@ class _ListLignesState extends State<ListLignes> {
                         ),
                         onPressed: () => Navigator.pop(context),
                       ),
+                      SizedBox(height: SizeConfig.blockSizeHorizontal * 7),
                       Text(
                         model.isSpanish ? 'Lista de líneas' : 'Lines list',
                         style: TextStyle(
@@ -47,6 +49,7 @@ class _ListLignesState extends State<ListLignes> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
+                      SizedBox(height: SizeConfig.blockSizeHorizontal * 7),
                       IconButton(
                         icon: Icon(
                           Icons.settings,
@@ -160,49 +163,64 @@ class _ListLignesState extends State<ListLignes> {
 
     //***List qui coontient toute les chaines de character des noms des lignes***//
     List<String> lignes = [
-      isSpanishLanguage ? "Línea":"Line" + " T1",
-      isSpanishLanguage ? "Línea":"Line" + " T2",
-      isSpanishLanguage ? "Línea":"Line" + " T3",
-      isSpanishLanguage ? "Línea":"Line" + " T4",
-      isSpanishLanguage ? "Línea":"Line" + " T5",
-      isSpanishLanguage ? "Línea":"Line" + " T6",
-      isSpanishLanguage ? "Todas estaciones":"All Tram Stations",
+      isSpanishLanguage ? "Línea" : "Line" + " T1",
+      isSpanishLanguage ? "Línea" : "Line" + " T2",
+      isSpanishLanguage ? "Línea" : "Line" + " T3",
+      isSpanishLanguage ? "Línea" : "Line" + " T4",
+      isSpanishLanguage ? "Línea" : "Line" + " T5",
+      isSpanishLanguage ? "Línea" : "Line" + " T6",
+      isSpanishLanguage ? "Todas estaciones" : "All Tram Stations",
     ];
+    //***Des fontions utilile pour construire la fontion subTitleLigneStation()***/
+    String from(bool state) {
+      return state ? "De " : "From ";
+    }
+
+    String to(bool state) {
+      return state ? " ... a " : " ... to ";
+    }
+
+    String lineFromTo(var station, bool state) {
+      return from(data.isSpanishLanguage) +
+          station[0].name +
+          to(data.isSpanishLanguage) +
+          station[station.length - 1].name;
+    }
 
     //***Cette fonction est utilisée pour ajouter subTitle à station par index***//
     String subTitleLigneStation(int index) {
-      return index == 0
-          ? isSpanishLanguage ? "De ":"From" +
-              data.stationsT1[0].name +
-              (isSpanishLanguage ? " ... a ":" ... to ")+
-              data.stationsT1[data.stationsT1.length - 1].name
-          : index == 1
-              ? isSpanishLanguage ? "De ":"From" +
-                  data.stationsT2[0].name +
-                  (isSpanishLanguage ? " ... a ":" ... to ") +
-                  data.stationsT2[data.stationsT2.length - 1].name
-              : index == 2
-                  ? isSpanishLanguage ? "De ":"From" +
-                      data.stationsT3[0].name +
-                      (isSpanishLanguage ? " ... a ":" ... to ") +
-                      data.stationsT3[data.stationsT3.length - 1].name
-                  : index == 3
-                      ? isSpanishLanguage ? "De ":"From" +
-                          data.stationsT4[0].name +
-                          (isSpanishLanguage ? " ... a ":" ... to ") +
-                          data.stationsT4[data.stationsT4.length - 1].name
-                      : index == 4
-                          ? isSpanishLanguage ? "De ":"From" +
-                              data.stationsT5[0].name +
-                              (isSpanishLanguage ? " ... a ":" ... to ") +
-                              data.stationsT5[data.stationsT5.length - 1].name
-                          : index == 5
-                              ? isSpanishLanguage ? "De ":"From" +
-                                  data.stationsT6[0].name +
-                                  (isSpanishLanguage ? " ... a ":" ... to ") +
-                                  data.stationsT6[data.stationsT6.length - 1]
-                                      .name
-                              : "";
+      switch (index) {
+        case 0:
+          return lineFromTo(data.stationsT1, data.isSpanishLanguage);
+
+          break;
+
+        case 1:
+          return lineFromTo(data.stationsT2, data.isSpanishLanguage);
+
+          break;
+        case 2:
+          return lineFromTo(data.stationsT3, data.isSpanishLanguage);
+
+          break;
+        case 3:
+          return lineFromTo(data.stationsT4, data.isSpanishLanguage);
+
+          break;
+        case 4:
+          return lineFromTo(data.stationsT5, data.isSpanishLanguage);
+
+          break;
+        case 5:
+          return lineFromTo(data.stationsT6, data.isSpanishLanguage);
+          break;
+
+        default:
+          {
+            return "";
+          }
+          break;
+      }
     }
 
     //***Return list des buttons des lignes ***//
