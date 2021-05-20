@@ -94,7 +94,7 @@ class _ListLignesState extends State<ListLignes> {
                                           activeColor:
                                               Theme.of(context).accentColor,
                                           value: model.darkTheme,
-                                          onChanged: (bool state) async {
+                                          onChanged: (state) async {
                                             setState(() {
                                               //**Changer le theme OnSwitch**/
                                               theActualThemeIsdark = state;
@@ -124,7 +124,7 @@ class _ListLignesState extends State<ListLignes> {
                                           inactiveThumbColor:
                                               Theme.of(context).accentColor,
                                           value: model.isSpanish,
-                                          onChanged: (bool state) async {
+                                          onChanged: (state) async {
                                             setState(() {
                                               //***Changer la langue OnSwitch***/
                                               model.toggleLanguage();
