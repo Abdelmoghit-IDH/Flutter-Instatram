@@ -48,7 +48,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 return Wrap(
                                   children: [
                                     Container(
-                                      color: Theme.of(context).accentColor,
+                                      color: Theme.of(context).primaryColor,
                                       child: ListTile(
                                         title: Text(
                                           model.isSpanish
@@ -76,12 +76,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                         ),
                                       ),
                                       trailing: Transform.scale(
-                                        scale: 1.5,
+                                        scale: 1.3,
                                         child: Switch(
                                           inactiveThumbColor:
-                                              Theme.of(context).accentColor,
+                                              Theme.of(context).primaryColor,
                                           activeColor:
-                                              Theme.of(context).accentColor,
+                                              Theme.of(context).primaryColor,
                                           value: model.darkTheme,
                                           onChanged: (bool state) async {
                                             setState(() {
@@ -106,16 +106,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                         ),
                                       ),
                                       trailing: Transform.scale(
-                                        scale: 1.5,
+                                        scale: 1.3,
                                         child: Switch(
                                           activeColor:
-                                              Theme.of(context).accentColor,
+                                              Theme.of(context).primaryColor,
                                           inactiveThumbColor:
-                                              Theme.of(context).accentColor,
+                                              Theme.of(context).primaryColor,
                                           value: model.isSpanish,
                                           onChanged: (bool state) async {
                                             setState(() {
-                                               //***Changer la langue OnSwitch***/
+                                              //***Changer la langue OnSwitch***/
                                               model.toggleLanguage();
                                             });
                                           },
@@ -140,7 +140,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     model.isSpanish ? "A" : "To",
                     Theme.of(context).primaryColorDark,
                   ),
-                  welcomeWidget("Barcelona", Colors.orange),
+                  welcomeWidget("Barcelona",
+                      Theme.of(context).primaryColor), //Color(0xfbbc05)
                 ],
               ),
             ),
@@ -151,5 +152,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
       );
     });
+  }
+  //************************This functions is used to custom logo text*************************/
+
+  Center logoWidget(String text) {
+    return Center(
+        child: Text(
+      text,
+      style: TextStyle(
+        fontSize: SizeConfig.safeBlockHorizontal * 9,
+        fontFamily: 'Pattaya-Regular',
+        color: Theme.of(context).primaryColorLight,
+      ),
+    ));
   }
 }

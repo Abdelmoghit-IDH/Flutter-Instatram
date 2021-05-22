@@ -62,7 +62,7 @@ class _ListLignesState extends State<ListLignes> {
                                 return Wrap(
                                   children: [
                                     Container(
-                                      color: Theme.of(context).accentColor,
+                                      color: Theme.of(context).primaryColor,
                                       child: ListTile(
                                         title: Text(
                                           model.isSpanish
@@ -90,14 +90,14 @@ class _ListLignesState extends State<ListLignes> {
                                         ),
                                       ),
                                       trailing: Transform.scale(
-                                        scale: 1.5,
+                                        scale: 1.3,
                                         child: Switch(
                                           inactiveThumbColor:
-                                              Theme.of(context).accentColor,
+                                              Theme.of(context).primaryColor,
                                           activeColor:
-                                              Theme.of(context).accentColor,
+                                              Theme.of(context).primaryColor,
                                           value: model.darkTheme,
-                                          onChanged: (state) async {
+                                          onChanged: (bool state) async {
                                             setState(() {
                                               //**Changer le theme OnSwitch**/
                                               theActualThemeIsdark = state;
@@ -120,14 +120,14 @@ class _ListLignesState extends State<ListLignes> {
                                         ),
                                       ),
                                       trailing: Transform.scale(
-                                        scale: 1.5,
+                                        scale: 1.3,
                                         child: Switch(
                                           activeColor:
-                                              Theme.of(context).accentColor,
+                                              Theme.of(context).primaryColor,
                                           inactiveThumbColor:
-                                              Theme.of(context).accentColor,
+                                              Theme.of(context).primaryColor,
                                           value: model.isSpanish,
-                                          onChanged: (state) async {
+                                          onChanged: (bool state) async {
                                             setState(() {
                                               //***Changer la langue OnSwitch***/
                                               model.toggleLanguage();
@@ -227,8 +227,9 @@ class _ListLignesState extends State<ListLignes> {
       padding: EdgeInsets.all(8),
       itemBuilder: (context, index) {
         return Card(
-          color: Theme.of(context).primaryColor,
-          elevation: 4,
+          color: Theme.of(context).cardColor, //TODO
+          shadowColor: Theme.of(context).primaryColor, //TODO
+          elevation: 2,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
@@ -243,16 +244,16 @@ class _ListLignesState extends State<ListLignes> {
                           child: Text(
                             lignes[index],
                             style: TextStyle(
-                              color: Theme.of(context).primaryColorDark,
+                              color: Theme.of(context).primaryColor,
                               fontFamily: 'Jura-VariableFont',
                               fontSize: 23,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        const Icon(
+                        Icon(
                           Icons.navigate_next,
-                          color: Colors.grey,
+                          color: Theme.of(context).primaryColor,
                           size: 26,
                         ),
                       ],
@@ -262,8 +263,9 @@ class _ListLignesState extends State<ListLignes> {
                     child: Text(
                       subTitleLigneStation(index),
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(color: Theme.of(context).primaryColorLight),
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColorLight,
+                          fontWeight: FontWeight.normal), //TODO
                     ),
                   )
                 ],

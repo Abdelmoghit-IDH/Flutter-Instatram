@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   //***Aprés 5 secondes => Aller au screen Welcome to barcelona ***/
 
   startTime() async {
-    var duration = new Duration(seconds: 5);
+    var duration = new Duration(seconds: 2);
     return new Timer(duration, route);
   }
 

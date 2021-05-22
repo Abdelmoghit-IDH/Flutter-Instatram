@@ -22,11 +22,13 @@ FutureBuilder<Response<WholeJSON>> getDataFromApiRest(BuildContext context) {
             ),
           );
         }
-        final popular = snapshot.data.body;
-        return _dataTram(context, popular);
+        final data = snapshot.data.body;
+        return _dataTram(context, data);
       } else {
         return Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
         );
       }
     },
@@ -43,6 +45,7 @@ Expanded _dataTram(BuildContext context, WholeJSON wholeJSON) {
   List<TramUtile> stationsT4 = [];
   List<TramUtile> stationsT5 = [];
   List<TramUtile> stationsT6 = [];
+  List<TramUtile> allStations = [];
 
   // Todo : affect the list of stations to the list define in the provider
   data.stationsT1 = stationsT1;
@@ -51,6 +54,7 @@ Expanded _dataTram(BuildContext context, WholeJSON wholeJSON) {
   data.stationsT4 = stationsT4;
   data.stationsT5 = stationsT5;
   data.stationsT6 = stationsT6;
+  data.allStations = allStations;
 
   for (var i = 0; i < wholeJSON.data.trams.length; i++) {
     data.allStations.add(TramUtile(
@@ -133,50 +137,41 @@ Center welcomeWidget(String text, Color color) {
   ));
 }
 
-//************************This functions is used to custom logo text*************************/
-
-Center logoWidget(String text) {
-  return Center(
-      child: Text(
-    text,
-    style: TextStyle(
-      fontSize: SizeConfig.safeBlockHorizontal * 9,
-      fontFamily: 'Pattaya-Regular',
-      color: Colors.black,
-    ),
-  ));
-}
-
 //************************This functions is used to custom bottom****************************/
 
-Container custumButtomLinesList(
+Card custumButtomLinesList(
     String textButtom, String routeName, BuildContext context) {
-  return Container(
-    width: SizeConfig.blockSizeHorizontal * 80,
-    height: SizeConfig.blockSizeVertical * 8,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(8),
-      color: Theme.of(context).primaryColor,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black12,
-          spreadRadius: 0.5,
-          blurRadius: 3,
-          offset: Offset(0, 2),
-        ),
-      ],
-    ),
-    child: TextButton(
-      onPressed: () {
-        Navigator.pushNamed(context, "/$routeName");
-      },
-      child: Text(
-        textButtom,
-        style: TextStyle(
-          fontSize: 20,
-          fontFamily: 'Jura-VariableFont',
-          color: Theme.of(context).primaryColorDark,
-          fontWeight: FontWeight.bold,
+  return Card(
+    color: Theme.of(context).cardColor, //TODO
+    shadowColor: Theme.of(context).primaryColor, //TODO
+    elevation: 4,
+    child: Container(
+      width: SizeConfig.blockSizeHorizontal * 80,
+      height: SizeConfig.blockSizeVertical * 8,
+      decoration: BoxDecoration(
+          //borderRadius: BorderRadius.circular(8),
+          //color: Theme.of(context).scaffoldBackgroundColor, //Theme.of(context).primaryColor.withOpacity(0.8), //TODO
+          /*boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).primaryColor, // Colors.black12,
+            spreadRadius: 0.2,
+            blurRadius: 6,
+            offset: Offset(01, 1),
+          ),
+        ],*/
+          ),
+      child: TextButton(
+        onPressed: () {
+          Navigator.pushNamed(context, "/$routeName");
+        },
+        child: Text(
+          textButtom,
+          style: TextStyle(
+            fontSize: 20,
+            fontFamily: 'Jura-VariableFont',
+            color: Theme.of(context).primaryColorDark,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     ),
@@ -185,37 +180,41 @@ Container custumButtomLinesList(
 
 //************************This functions is used to custom bottom****************************/
 
-Container custumButtomAllStations(String textButtom, BuildContext context) {
-  return Container(
-    width: SizeConfig.blockSizeHorizontal * 80,
-    height: SizeConfig.blockSizeVertical * 8,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(8),
-      color: Theme.of(context).primaryColor,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black12,
-          spreadRadius: 0.5,
-          blurRadius: 3,
-          offset: Offset(0, 2),
-        ),
-      ],
-    ),
-    child: TextButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Home()),
-        );
-      },
-      child: Text(
-        textButtom,
-        style: TextStyle(
-          fontSize: 20,
-          fontFamily: 'Jura-VariableFont',
-          color: Theme.of(context).primaryColorDark,
-          fontWeight: FontWeight.bold,
+Card custumButtomAllStations(String textButtom, BuildContext context) {
+  return Card(
+    color: Theme.of(context).cardColor, //TODO
+    shadowColor: Theme.of(context).primaryColor, //TODO
+    elevation: 4,
+    child: Container(
+      width: SizeConfig.blockSizeHorizontal * 80,
+      height: SizeConfig.blockSizeVertical * 8,
+      decoration: BoxDecoration(
+          //borderRadius: BorderRadius.circular(8),
+          //color: Theme.of(context).primaryColor.withOpacity(0.8), //TODO
+          /*boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            spreadRadius: 0.5,
+            blurRadius: 3,
+            offset: Offset(0, 2),
+          ),
+        ],*/
+          ),
+      child: TextButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Home()),
+          );
+        },
+        child: Text(
+          textButtom,
+          style: TextStyle(
+            fontSize: 20,
+            fontFamily: 'Jura-VariableFont',
+            color: Theme.of(context).primaryColorDark,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     ),

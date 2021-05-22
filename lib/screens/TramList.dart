@@ -60,7 +60,7 @@ class _TramsListState extends State<TramsList> {
             drawGap: true,
           ),
           beforeLineStyle: LineStyle(
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor.withOpacity(0.8),
           ),
           endChild: _RowExample(example: listTarget[index]),
         );
@@ -85,7 +85,7 @@ class _IndicatorExample extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.fromBorderSide(
           BorderSide(
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor.withOpacity(0.8),
             width: 4,
           ),
         ),
@@ -159,7 +159,7 @@ class _RowExample extends StatelessWidget {
             ),
             Icon(
               Icons.navigate_next,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).primaryColor,
               size: 30,
             ),
           ],

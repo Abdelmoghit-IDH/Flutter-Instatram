@@ -19,7 +19,7 @@ abstract class TramService extends ChopperService {
     // 9
     final client = ChopperClient(
       // 10
-      baseUrl: 'https://api.jsonbin.io/b/6096b0fb7a19ef1245a58e21',
+      baseUrl: 'https://api.jsonbin.io/b/60a91d592b1b894dbee7df9a',
       interceptors: [HttpLoggingInterceptor()],
 
       converter: ModelConverter(),

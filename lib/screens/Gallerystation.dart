@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'Upload_Image.dart';
 
-
 class Gallerystation extends StatefulWidget {
   final String stationsName;
   Gallerystation({Key key, @required this.stationsName}) : super(key: key);
@@ -12,8 +11,6 @@ class Gallerystation extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState(stationsName);
 }
-
-
 
 class _HomePageState extends State<Gallerystation> {
   String sname;
@@ -26,12 +23,31 @@ class _HomePageState extends State<Gallerystation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      //backgroundColor: Colors.grey[800],
       appBar: AppBar(
-          title: Text(AppTranslations.of(context).text("Photos of ") + sname)),
+          iconTheme: IconThemeData(
+              color: Theme.of(context).primaryColorDark //change your color here
+              ),
+          foregroundColor: Colors.black,
+          backgroundColor: Theme.of(context).bottomAppBarColor,
+          centerTitle: true,
+          title: Text(
+            AppTranslations.of(context).text("Photos of ") + sname,
+            style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+                fontFamily: 'Jura-VariableFont',
+                fontWeight: FontWeight.bold),
+          )),
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add_a_photo),
-        label: Text(AppTranslations.of(context).text("Add a photo")),
+        icon: Icon(
+          Icons.add_a_photo,
+          color: Theme.of(context).primaryColor,
+        ),
+        label: Text(
+          AppTranslations.of(context).text("Add a photo"),
+          style: TextStyle(color: Theme.of(context).primaryColor),
+        ),
+        backgroundColor: Theme.of(context).bottomAppBarColor,
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => AddImage(stationsName: sname)));
@@ -57,7 +73,10 @@ class _HomePageState extends State<Gallerystation> {
             return buildListView(docs);
           } else {
             //............avant le chargment de donnés
-            return Center(child: CircularProgressIndicator());
+            return Center(
+                child: CircularProgressIndicator(
+              backgroundColor: Theme.of(context).primaryColor,
+            ));
           }
         },
       ),
@@ -75,15 +94,15 @@ class _HomePageState extends State<Gallerystation> {
             padding: EdgeInsets.symmetric(vertical: 8),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).cardColor.withOpacity(1),
                 borderRadius: BorderRadius.circular(20),
                 //border: Border.all(color: Colors.grey),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 10,
-                    offset: Offset(0, 3), // changes position of shadow
+                    spreadRadius: 01,
+                    blurRadius: 5,
+                    offset: Offset(1, 1), // changes position of shadow
                   ),
                 ],
               ),
@@ -114,7 +133,13 @@ class _HomePageState extends State<Gallerystation> {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         //........titre du poste
-                        children: [Text(docsList[index].data()['title'])],
+                        children: [
+                          Text(
+                            docsList[index].data()['title'],
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColorLight),
+                          )
+                        ],
                       ),
                     ),
                     SizedBox(
@@ -137,6 +162,7 @@ class _HomePageState extends State<Gallerystation> {
                           Icon(
                             Icons.favorite_border,
                             size: 30,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ],
                       ),
@@ -168,7 +194,9 @@ class _HomePageState extends State<Gallerystation> {
           ),
           Text(
             "Xavi Lopez",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColorLight),
           )
         ],
       ),
@@ -196,7 +224,9 @@ class _HomePageState extends State<Gallerystation> {
             height: 100,
             width: 100,
             child: Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
             ),
           ),
         ),

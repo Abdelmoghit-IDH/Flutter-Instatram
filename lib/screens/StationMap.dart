@@ -54,7 +54,7 @@ class _StationMapState extends State<StationMap> {
               color: Theme.of(context).primaryColorDark //change your color here
               ),
           foregroundColor: Colors.black,
-          backgroundColor: Theme.of(context).primaryColorLight,
+          backgroundColor: Theme.of(context).bottomAppBarColor,
           centerTitle: true,
           title: Text(
             station.name,

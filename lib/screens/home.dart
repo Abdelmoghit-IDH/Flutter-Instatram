@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
   //***index=7 tous afficher toute les stations**/
   Home({
     Key key,
-    this.index=7,
+    this.index = 7,
   }) : super(key: key);
   final index;
 
@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
     assert(_kTabPages.length == _kBottmonNavBarItems.length);
     //..........................................................la bottom nav bar ou on a les icons
     final bottomNavBar = BottomNavigationBar(
-      fixedColor: Theme.of(context).accentColor,
+      fixedColor: Theme.of(context).primaryColor,
       iconSize: SizeConfig.blockSizeHorizontal * 7,
       items: _kBottmonNavBarItems,
       currentIndex: _currentTabIndex,
@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
           _currentTabIndex = index;
         });
       },
-      backgroundColor: Theme.of(context).primaryColorLight,
+      backgroundColor: Theme.of(context).bottomAppBarColor, //TODO
     );
     return Scaffold(
       appBar: AppBar(
@@ -65,13 +65,13 @@ class _HomeState extends State<Home> {
               color: Theme.of(context).primaryColorDark //change your color here
               ),
           foregroundColor: Colors.black,
-          backgroundColor: Theme.of(context).primaryColorLight,
+          backgroundColor: Theme.of(context).bottomAppBarColor,
           centerTitle: true,
           title: Text(
             index != 7
                 ? 'T${this.index} ' +
                     AppTranslations.of(context).text("Line Tram Stations")
-                : 'All Tram Stations',
+                : AppTranslations.of(context).text("All Tram Stations"),
             style: TextStyle(
               color: Theme.of(context).primaryColorDark,
               fontFamily: 'Jura-VariableFont',

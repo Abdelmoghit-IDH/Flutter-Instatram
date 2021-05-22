@@ -33,7 +33,19 @@ class _AddImageState extends State<AddImage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppTranslations.of(context).text("Add a photo")),
+        iconTheme: IconThemeData(
+            color: Theme.of(context).primaryColorDark //change your color here
+            ),
+        centerTitle: true,
+        title: Text(
+          AppTranslations.of(context).text("Add a photo"),
+          style: TextStyle(
+              color: Theme.of(context).primaryColorDark,
+              fontFamily: 'Jura-VariableFont',
+              fontWeight: FontWeight.bold),
+        ),
+        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).bottomAppBarColor,
         actions: [
           //................................boutton upload
           TextButton(
@@ -44,10 +56,18 @@ class _AddImageState extends State<AddImage> {
                 uploadFile(myController.text)
                     .whenComplete(() => Navigator.of(context).pop());
               },
-              child: Text(
+              child: Icon(
+                Icons.done_rounded,
+                size: 40,
+                color: Theme.of(context).primaryColor,
+              )
+              /*Text(
                 AppTranslations.of(context).text("Upload"),
-                style: TextStyle(color: Colors.white),
-              ))
+                style: TextStyle(
+                  color: Theme.of(context).primaryColorDark,
+                ),
+              )*/
+              )
         ],
       ),
       body: uploading
@@ -55,7 +75,10 @@ class _AddImageState extends State<AddImage> {
               //..........................this is for loading after uploading an image
               width: double.infinity,
               height: double.infinity,
-              child: Center(child: CircularProgressIndicator()),
+              child: Center(
+                  child: CircularProgressIndicator(
+                backgroundColor: Theme.of(context).primaryColor,
+              )),
             )
           : SingleChildScrollView(
               //..........................this is the normal body
@@ -72,7 +95,7 @@ class _AddImageState extends State<AddImage> {
                                 icon: Icon(
                                   Icons.add_a_photo_outlined,
                                   size: 50,
-                                  color: Theme.of(context).primaryColorDark,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                                 onPressed: onClickAddPhoto)
                             : Padding(
@@ -85,9 +108,7 @@ class _AddImageState extends State<AddImage> {
                               )),
                     //..............................................TextField
                     Theme(
-                      data: ThemeData(
-                        primaryColor: Colors.orange,
-                      ),
+                      data: Theme.of(context),
                       child: Padding(
                         padding: const EdgeInsets.all(40.0),
                         child: buildTitleTextField(context),
@@ -103,7 +124,7 @@ class _AddImageState extends State<AddImage> {
   TextField buildTitleTextField(BuildContext context) {
     return TextField(
       controller: myController,
-      textCapitalization: TextCapitalization.words,
+      textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
           filled: true,
           border: OutlineInputBorder(),
@@ -112,7 +133,7 @@ class _AddImageState extends State<AddImage> {
           icon: Icon(
             Icons.title,
             size: 35,
-            color: Theme.of(context).primaryColorDark,
+            color: Theme.of(context).primaryColor,
           )),
     );
   }
@@ -129,7 +150,7 @@ class _AddImageState extends State<AddImage> {
             ),
             Container(
               width: 300,
-              color: Colors.orange.withOpacity(0.1),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               child: ListTile(
                 leading: Icon(Icons.image),
                 title: Text(AppTranslations.of(context).text("Gallery")),
@@ -144,7 +165,7 @@ class _AddImageState extends State<AddImage> {
             ),
             Container(
               width: 300,
-              color: Colors.orange.withOpacity(0.1),
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
               child: ListTile(
                 leading: Icon(Icons.add_a_photo),
                 title: Text(AppTranslations.of(context).text("Camera")),
