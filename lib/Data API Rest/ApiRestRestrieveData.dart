@@ -148,18 +148,6 @@ Card custumButtomLinesList(
     child: Container(
       width: SizeConfig.blockSizeHorizontal * 80,
       height: SizeConfig.blockSizeVertical * 8,
-      decoration: BoxDecoration(
-          //borderRadius: BorderRadius.circular(8),
-          //color: Theme.of(context).scaffoldBackgroundColor, //Theme.of(context).primaryColor.withOpacity(0.8), //TODO
-          /*boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).primaryColor, // Colors.black12,
-            spreadRadius: 0.2,
-            blurRadius: 6,
-            offset: Offset(01, 1),
-          ),
-        ],*/
-          ),
       child: TextButton(
         onPressed: () {
           Navigator.pushNamed(context, "/$routeName");
@@ -188,18 +176,6 @@ Card custumButtomAllStations(String textButtom, BuildContext context) {
     child: Container(
       width: SizeConfig.blockSizeHorizontal * 80,
       height: SizeConfig.blockSizeVertical * 8,
-      decoration: BoxDecoration(
-          //borderRadius: BorderRadius.circular(8),
-          //color: Theme.of(context).primaryColor.withOpacity(0.8), //TODO
-          /*boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 0.5,
-            blurRadius: 3,
-            offset: Offset(0, 2),
-          ),
-        ],*/
-          ),
       child: TextButton(
         onPressed: () {
           Navigator.push(
